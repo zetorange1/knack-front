@@ -1,0 +1,33 @@
+<div id="chat-box" ng-controller="chatboxCtrl" ng-hide="receiver == null || ! is_authenticated || messages_page">
+    <div class="chat-top-bar clearfix" ng-class="{'no-border': minimized}" ng-click="toggleChat()">
+        <figure class="receiver-picture">
+            <img ng-src="{{ receiver.picture }}" alt="{{ receiver.full_name }}">
+        </figure>
+        <div class="receiver-name">{{ receiver.full_name }}</div>
+        <div class="chat-button chat-close" ng-click="close($event)"></div>
+        <div class="chat-button chat-minimize" ng-hide="minimized"></div>
+    </div>
+    <div class="chat-body" ng-hide="minimized">
+        <div class="chat-wrapper" perfect-scrollbar scroll-bottom="Message.collection">
+            <div id="chats-content">
+                <div ng-repeat="message in Message.collection track by $index">
+                    <div class="chat" ng-class="{reverse:message.data.sender_data.id==user.profile().id}">
+                        <div class="chat-content">
+                            {{ message.data.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chatbox-footer">
+            <form ng-submit="submit(new_message)">
+                <div class="input-group">
+                    <input type="text" class="form-control font-5 ng-pristine ng-invalid ng-invalid-required" ng-model="new_message" placeholder="Your message..." autofocus="" required="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-custom" type="submit"><strong>SEND</strong></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

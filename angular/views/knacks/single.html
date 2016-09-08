@@ -1,0 +1,196 @@
+<div class="top-filter-container">
+    <div class="container">
+        <div class="filter-row filtering-row">
+        <div class="filter-cell search-cell">
+            <form class="search-form" role="search">
+                <input type="search" class="form-control" ng-model="filter.search_text" placeholder="Search by name, classmate name, knack etc ...">
+                <input type="button" value="Search" class="search-btn" title="Search Now" ng-click="fullSearch()">
+                <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+            </form>
+            <form class="search-form-mobile" role="search">
+                <input type="search" class="form-control" ng-model="filter.search_text" placeholder="Search....">
+                <input type="button" value="Search" class="search-btn" title="Search Now" ng-click="fullSearch()">
+                <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+            </form>
+            <!-- <a href="#" class="mobile-search-btn" title="Search now">Seach now</a> -->
+
+        </div><!-- End .filter-cell -->
+        <div class="filter-cell order-cell feed-filter">
+            <div class="sortby-text gray-color" ng-init="isShowSortContent = false" ng-click="isShowSortContent = !isShowSortContent">Sort by:<span class="desktop-show"> {{selectedItem}}</span></div>
+            <div class="sortby-content" ng-show="isShowSortContent">
+                <div class="sort-item gray-color" ng-repeat="sortItem in sortList track by $index" ng-click="selectItem($index)" >
+                    {{sortItem}}
+                </div>
+            </div>
+        </div><!-- End .filter-cell -->
+        <!-- <div class="filter-cell layout-cell filter-refresh">
+            <a href="javascript:void(0);" class="" title="Flip" ng-click="flipAll()" ng-show="current_type != 'knack-ideas'">
+                <img src="images/login_logo.png" class="indent-button">
+            </a>
+        </div> --><!-- End .filter-cell -->
+        </div><!-- End .top-filter-row -->
+    </div><!-- end .container -->
+</div><!-- End .top-filter-container -->
+<div class="container single-container white-background">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-top">
+                <h2 class="special-row item-title"><p class="col-content">{{ single_knack.name }}</p></h2>
+                <div class="item-meta">
+                    <span class="date-icon"></span>
+                    <div class="item-date">{{ single_knack.created_at }}</div>
+                    <span class="dot-separator"></span>
+                    <div class="item-category">
+                        <a href="#" title="Technology">{{ single_knack.category_name }}</a>
+                    </div>
+                    <span ng-hide="current_type == 'knack-ideas'">
+                        <span class="h-separator"></span>
+                        <span class="view-icon"></span>
+                        <span class="item-view">{{ single_knack.views }} views</span>
+                    </span>
+                </div><!-- End .item-meta -->
+                <a href="" class="close-btn" title="Close" ng-click="closeSingle()">
+                    <img src="images/knacks-close.png" class="single-knack-close-btn" alt="knacks-close">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container special-container">
+    <div class="row special-row">
+        <div class="col-content">
+            <div class="single-item-desc">
+                <ul class="photo-slider" photo-slider>
+                    <li ng-repeat="photo in single_knack.photos track by $index" data-thumb="{{single_knack.thumbnails[$index]}}">
+                        <img ng-src="{{ photo }}" />
+                        <span class="item-price">${{ single_knack.price }}/{{(single_knack.how_charge == 'Flat Fee')? 'FF': 'HR' }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="knack-details">
+                <div class="single-item-desc">
+                    <h3 ng-show="single_knack.type == 'O'">I can help with...</h3>
+                    <h3 ng-show="single_knack.type == 'W'">I need help with...</h3>
+                    <p style="white-space: pre-line;" ng-bind-html="single_knack.description | linky"></p>
+                </div>
+            </div>
+                <!-- <div class="line-separator"></div> -->
+
+            <div class="single-item-desc">
+                <h3>What's my schedule like?</h3>
+                <p>{{ single_knack.schedule }}</p>
+            </div>
+
+            <div class="single-item-desc">
+                <h3 ng-show="single_knack.type == 'O'">Willing to deliver...</h3>
+                <h3 ng-show="single_knack.type == 'W'">Do I need this service delivered?</h3>
+                <p ng-show="single_knack.willing_to_travel">Yes<span class="dot-separator"></span>{{ single_knack.miles }}</p>
+                <p ng-show="! single_knack.willing_to_travel">No</p>
+            </div>
+
+            <div class="single-item-desc">
+                <h3 ng-show="single_knack.type == 'O'">What's my rate?</h3>
+                <h3 ng-show="single_knack.type == 'W'">Willing to pay...</h3>
+                <p>${{ single_knack.price }}/{{ single_knack.how_charge }}</p>
+            </div>
+
+            <div class="line-separator"></div>
+            <div class="single-item-desc" ng-show="current_type == 'knack-ideas'">
+                <h3>Business model</h3>
+                <p ng-bind-html="single_knack.business_model"></p>
+            </div>
+
+            <div class="single-item-desc">
+                <h3 class="review-title" ng-if="single_knack.rating_count > 0">Reviews({{ single_knack.rating_count }})</h3>
+                <h3 class="review-title" ng-if="single_knack.rating_count == 0">No Reviews</h3>
+                <a class="write-review" ng-click="openWriteAReviewModal(single_knack.buy_item, 'knack', single_knack.id, single_knack.reviews)">Write review</a>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="review" ng-repeat="review in single_knack.reviews">
+                <div class="review-wrapper clearfix">
+                    <div class="item-owner">
+                        <figure>
+                            <img src="{{ review.poster_picture }}" alt="Derek Wilson">
+                        </figure>
+                        <div class="owner-meta">
+                            <h4><a href="#">{{ review.poster_name }}</a></h4>
+                            <span>{{ review.poster_college }}</span>
+                        </div><!-- End .owner-meta -->
+                    </div><!-- End .item-owner -->
+                    <div class="rating">
+                        <div class="ratings-container sm">
+                            <span class="ratings-wrapper">
+                                <span class="ratings" ng-style="{'width':(review.rating * 100 / 5) + '%'}"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div><!-- End .review-wrapper -->
+                <div class="review-content">
+                    {{ review.feedback }}
+                </div><!-- End .review-content -->
+            </div><!-- .End .review -->
+        </div><!-- End .col-content -->
+
+        <div class="col-side">
+            <article class="item item-profile">
+                <div class="item-header text-center" ng-show="current_type == 'knack-ideas'">
+                    <figure class="item-avatar" ng-class="{'with-video': !! single_knack.video}" ng-click="showVideoModal(single_knack.video)">
+                        <img src="images/login_logo.png" alt="Uknack team">
+                        <a href="" class="play-video"></a>
+                    </figure>
+                    <a class="profile-name">Uknack team</a>
+                    <div class="profile-item">Boston</div>
+                </div>
+                <div class="item-header text-center" ng-show="current_type != 'knack-ideas'">
+                    <!-- <a ng-show="user.profile().id != single_knack.owner.id && user.connected_to(single_knack.owner.id)" class="icon-heart active" ng-click="user.disconnect(single_knack.owner);"></a>
+                    <a ng-show="user.profile().id != single_knack.owner.id && ! user.connected_to(single_knack.owner.id)" class="icon-heart" ng-click="user.connect(single_knack.owner);"></a> -->
+                    <figure class="item-avatar" ng-class="{'with-video': !! single_knack.video}" ng-click="showVideoModal(single_knack.video)">
+                        <a href="/#/public/{{single_knack.owner.username}}"><img ng-src="{{single_knack.owner.picture}}" alt="{{single_knack.owner.full_name}}"></a>
+                        <span class="owner-status" ng-class="{'on': single_knack.owner.is_online}"></span>
+                        <a href="" class="play-video"></a>
+                    </figure>
+                    <a class="profile-name" href="/#/public/{{single_knack.owner.username}}">{{single_knack.owner.full_name}}</a>
+                    <div class="profile-item">{{single_knack.owner.college}}</div>
+                    <div class="profile-item">
+                        {{single_knack.owner.year}} &middot; {{single_knack.owner.age}} y/o
+                    </div>
+                </div>
+                <div class="item-content" ng-show="current_type != 'knack-ideas'">
+                    <div class="form-group">
+                        <p class="item-price">${{single_knack.owner.grand_total}}</p>
+                        <p class="profile-item">{{single_knack.owner.created_at}}</p>
+                    </div>
+                    <div class="form-group">
+                        <div class="rating">
+                            <div class="ratings-container sm">
+                                <span class="ratings-wrapper">
+                                    <span class="ratings" ng-style="{'width':(single_knack.rating * 100 / 5) + '%'}"></span>
+                                </span>
+                                <span class="ratings-count">({{single_knack.rating_count || 0}})</span>
+                            </div>
+                        </div>
+                        <p class="profile-item">Last seen: {{single_knack.owner.last_seen}}</p>
+                    </div>
+                </div>
+                <div class="item-action" ng-hide="single_knack.owner.id == user.profile().id">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-custom btn-block" ng-click="openMakeOfferModal('offer', single_knack)" ng-show="single_knack.type == 'W'">
+                        <strong>MAKE ME AN OFFER</strong>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-custom btn-block" ng-click="openHireModal(single_knack)" ng-show="single_knack.type == 'O' && current_type !='knack-ideas'">
+                        <strong>HIRE ME</strong>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-custom btn-block" ng-click="openPostModal(ideaToKnack(single_knack))" ng-show="current_type =='knack-ideas'">
+                        <strong>MAKE IT MINE</strong>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-custom2 btn-block" ng-show="single_knack.owner.is_online && current_type != 'knack-ideas'" ng-click="setChatUser(single_knack.owner)">
+                        <strong>Chat with me I am online!</strong>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-custom btn-border btn-block" ng-show="!single_knack.owner.is_online && current_type != 'knack-ideas'" ng-click="messageMe(single_knack.owner.first_name)">
+                        <strong>Message me I am offline!</strong>
+                    </a>
+                </div>
+            </article>
+        </div><!-- End .col-side -->
+    </div><!-- End .special-row -->
+</div><!-- End .container -->

@@ -1,0 +1,50 @@
+<!--register-email-modal-->
+<form class="writereview-modal-form" name="writereviewForm" ng-show="!buy_item">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="">Write a review</h4>
+    </div><!-- End .modal-header -->
+    <div class="modal-body ">
+        <div class="form-group">
+            <div class="well" ng-show="message">
+                {{ message }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="input-desc">RATE BY STARS </label>
+            <div class="rating-group-wrapper">
+                <div class="rating-item-content" ng-repeat="item in ratingItemList" ng-class="{'selected-rating-item': review.rating-1==$index}" ng-click="selectItem($index)">
+                    <div class="font-5 font-bold">
+                        {{item.rate_val}}
+                    </div>
+                    <div class="font-5 gray-color rate-title">
+                        {{item.rate_title}}
+                    </div>
+                <span class="ratings-wrapper">
+                    <span class="ratings full-ratings" ng-class="{'width-20': $index==0, 'width-40': $index==1, 'width-60': $index==2, 'width-80': $index==3, 'width-100': $index==4}"></span>
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="form=group">
+            <label class="input-desc">YOUR REVIEW</label>
+            <textarea class="write-review-content" ng-model="review.feedback" required></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" ng-show="created" class="btn btn-lg btn-custom btn-block" ng-click="postReview()"><strong>POST YOUR REVIEW</strong>
+        <button type="submit" ng-show="!created" class="btn btn-lg btn-custom btn-block" ng-click="postReview()"><strong>EDIT YOUR REVIEW</strong>
+        </button>
+    </div><!-- End .modal-footer -->
+</form>
+<form class="buy-writereview-modal-form" ng-show="buy_item">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+            <img class="modal-header-img" src="images/login_logo.png"/>
+            <h4 class="modal-title" id="modallabel4">You must buy this {{item_type}}<br>to write a customer review</h4>
+        </div><!-- End .modal-header -->
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-lg btn-custom btn-block" ng-click=""><strong>BUY THIS {{item_type}}</strong></button>
+        </div><!-- End .modal-footer -->
+    </div>
+</form>

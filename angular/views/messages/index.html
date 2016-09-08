@@ -1,0 +1,380 @@
+<ng-include src="'views/left/profile_left.html'"></ng-include>
+<div id="content" role="main" class="profile messages">
+    <div class="container special-container">
+        <h2 class="h3 chat-title chat-nav-wrapper">
+            <div class="chat-nav messages" ng-click="nowContainer='messages'" ng-class="{'blue-color2': nowContainer=='messages'}"><span class="badge">{{ new_message_count }}</span>Messages</div>
+            <div class="chat-nav notifications" ng-click="nowContainer='notifications'" ng-class="{'blue-color2': nowContainer=='notifications'}"><span class="badge">{{ unread_notifications.length }}</span>Notifications</div>
+            <div class="chat-nav no-border-right connections" ng-click="nowContainer='connections'" ng-class="{'blue-color2': nowContainer=='connections'}"><span class="badge">{{ user.profile().connections.length }}</span>Connections</div>
+        </h2>
+        <div class="messages-container" ng-if="nowContainer=='messages'">
+            <div class="chats-list contact-list" ng-if="contacts.length>0">
+                <ul ng-repeat="contact in contacts track by $index" class="contact-item-wrapper" outside-click="isIndex=-1">
+                    <li class="item-owner contact-item" ng-click="select_contact(contact)" ng-class="{active: selected_user == contact}">
+                        <figure>
+                            <a href="/#/public/{{contact.username}}"><img ng-src="{{ contact.picture }}" class="contact-list-picture" alt="{{ contact.full_name }}"></a>
+                            <span class="owner-status" ng-class="{'owner-status on': contact.is_online }"></span>
+                        </figure>
+                        <div class="owner-meta">
+                            <h3><a ng-href="#/public/{{ contact.username }}" ng-click="isIndex=$index">{{ contact.full_name }}</a><span class="item-date">{{ contact.last_received_at }}</span></h3>
+                            <p class="chat-excerpt">{{ contact.last_message }}</p>
+                        </div><!-- End .owner-meta -->
+                    </li>
+                    <article class="item item-profile item-profile-cus" ng-show="isIndex==$index" >
+                        <div class="item-header profile-item-header">
+                            <figure class="user-picture-wrapper">
+                                <img src="images/users/user.png" alt="Derek Wilson">
+                                <span class="owner-status profile-owner-status on" ng-class="{on: connection.status=='on'}"></span>
+                            </figure>
+                            <a class="profile-name ng-binding">Derek Wilson</a>
+                            <div class="profile-item ng-binding">Fisher College</div>
+                            <div class="profile-item ng-binding">
+                                Sophomore · 22y/o
+                            </div>
+                            <a class="icon-check"></a>
+                        </div>
+                        <div class="item-content">
+                            <div class="form-group">
+                                <p class="item-price ng-binding">$2014</p>
+                                <p class="profile-item profile-info-item ng-binding">Since dec 2014</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="rating">
+                                    <div class="ratings-container">
+                                        <span class="ratings-wrapper">
+                                            <span class="ratings" style="width:80%;"></span>
+                                        </span>
+                                        <span class="ratings-count">(4)</span>
+                                    </div>
+                                </div>
+                                <p class="profile-item profile-info-item ng-binding">Last seen: 2 hours ago</p>
+                            </div>
+                            <div class="form-group">
+                                <ul class="connection-list connection-list-cus">
+                                    <li><figure class="user-picture-wrapper"><img src="images/users/user1.jpg"></figure></li>
+                                    <li><figure class="user-picture-wrapper"><img src="images/users/user2.jpg"></figure></li>
+                                    <li><figure class="user-picture-wrapper"><img src="images/users/user3.jpg"></figure></li>
+                                    <li><figure class="user-picture-wrapper"><img src="images/users/user4.jpg"></figure></li>
+                                    <li class="gray-color like-count">+34</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+
+                </ul>
+            </div><!-- End .chats-list -->
+            <div class="chats-container" ng-if="contacts.length>0">
+                
+                <div scroll-bottom="messages" class="chats-wrapper" perfect-scrollbar scroll-bottom="messages">
+                    <div id="chats-content" class="chats-content">
+                        <!-- <header class="messages-top-header">
+                            <h3><span>YESTERDAY</span></h3>
+                        </header> -->
+                        <div ng-repeat="message in messages track by $index">
+                            <div class="chat" ng-class="{reverse:message.sender.id==profile_user.user_id}">
+                                <div class="chat-content chat-content-cus font-5" >
+                                    {{ message.body }}
+                                </div><!-- End .chat-content -->
+
+                                <div class="chat-meta-wrapper clearfix">
+                                    <div class="item-owner">
+                                        <figure>
+                                            <img ng-src="{{ message.sender.picture || 'images/users/no_avatar.png' }}" width="75px" height="75px" alt="{{ message.sender.full_name }}">
+                                        </figure>
+                                        <div class="owner-meta" ng-class="{'left': 'message.sender.id==profile_user.user_id'}">
+                                            <h4>
+                                                <span ng-hide="message.sender.id==profile_user.user_id">{{ message.sender.full_name }}</span>
+                                                <span ng-show="message.sender.id==profile_user.user_id">Me</span>
+                                            </h4>
+                                            <span>{{ message.sender.college }}</span>
+                                        </div><!-- End .owner-meta -->
+                                    </div><!-- End .item-owner -->
+                                    <div class="item-date">{{ message.created_at }}</div><!-- End .item-date -->
+                                </div><!-- End .chat-meta- wrapper -->
+                            </div><!-- End .chat -->
+                        </div>
+                    </div>
+                </div><!-- End .chats-wrapper -->
+                <footer>
+                    <form ng-submit="submit()">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="chat_data.new_message" placeholder="Your message..." required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-custom" type="submit"><strong>SEND</strong></button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="footer-wrapper">
+                        <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+                        <ul class="footer-menu clearfix">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Feedback</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>                        
+                        <div class="social-icons">
+                            <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                            <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                            <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                        </div><!-- End .social-icons -->                        
+                    </div>
+                </footer>
+            </div><!-- End .chats-container -->
+            <div class="not-found" ng-if="contacts.length==0">You don't have any messages</div>
+        </div>
+        <div class="notifications-container messages-container" ng-if="nowContainer=='notifications'">
+            <div class="chats-list contact-list" ng-if="notifications.length>0">
+                <ul ng-repeat="notification in notifications track by $index">
+                    <li class="item-owner contact-item" ng-click="select_notification(notification)" ng-class="{'active': ! notification.is_read || notification == current_notification}">
+                        <figure>
+                            <a href="/#/public/{{notification.sender.username}}"><img ng-src="{{ notification.sender.picture || 'images/users/no_avatar.png' }}" class="contact-list-picture" alt="{{ notification.sender.full_name }}"></a>
+                            <span class="owner-status" ng-class="{'owner-status on': notification.sender.is_online }"></span>
+                        </figure>
+                        <div class="owner-meta">
+                            <h3><a ng-href="#/public/{{ notification.sender.username }}">{{ notification.sender.full_name }}</a><span class="item-date">{{ notification.created_at }}</span></h3>
+                            <div class="owner-state-content">
+                                <div class="left gray-color font-5 contact-state" ng-show="notification.type == 'CN'">Connected with you</div>
+                                <img class="right contact-state-icon" src="images/sprites-images/S-green-icon.png" ng-show="contact.state=='item' || contact.state=='knack'">
+                                <img class="right contact-state-icon" src="images/sprites-images/check-green.png" ng-show="notification.type == 'CN' && user.connected_to(notification.sender.id)" ng-click="$event.stopPropagation();user.disconnect(notification.sender)">
+                                <img class="right contact-state-icon" src="images/sprites-images/check-gray.png" ng-show="notification.type == 'CN' && ! user.connected_to(notification.sender.id)" ng-click="$event.stopPropagation();user.connect(notification.sender)">
+                            </div>    
+                        </div><!-- End .owner-meta -->
+                    </li>
+                </ul>
+            </div><!-- End .chats-list -->
+            <div class="chats-container" ng-if="notifications.length>0">
+                
+                <div ng-show="current_notification != null" class="chats-wrapper" perfect-scrollbar>
+                    <div id="chats-content" class="chats-content">
+                        <div class="messagege-contents-wrapper">
+                            <div class="header">
+                                <div class="icon-wrapper">
+                                    <img class="img-icon" src="images/login_logo.png">
+                                </div>                                    
+                                <div class="title">
+                                    <a href="" class="font-3" ng-if="nowState=='item'">JAMES PORTER BOUGHT YOUR ITEM</a>
+                                    <a href="" class="font-3" ng-if="nowState=='knack'">JAMES PORTER BOUGHT YOUR KNACK</a>
+                                    <a href="" style="text-transform: uppercase;" class="font-3" ng-if="current_notification.type == 'CN'">{{ current_notification.sender.full_name }} CONNECTED WITH YOU</a>
+                                </div>
+                                <div class="gray-color font-3">
+                                    <div ng-if="nowState=='item'">Chat here with James to define the delivery location</div>
+                                    <div ng-if="nowState=='knack'">Chat here with James to start talking business</div>
+                                    <div ng-if="current_notification.type == 'CN'">Check the check mark on the top left of her photo to connect with her or start chatting</div>
+                                </div>   
+                            </div> 
+                            <div class="center"> 
+                                <article class="item item-profile item-profile-cus" ng-class="{'left': nowState=='item' || nowState=='knack'}">
+                                    <div class="item-header profile-item-header">
+                                        <figure>
+                                            <a href="/#/public/{{current_notification.sender.username}}"><img ng-src="{{ current_notification.sender.picture || 'images/users/no_avatar.png' }}" alt="{{ current_notification.sender.full_name }}"></a>
+                                            <span class="owner-status profile-owner-status" ng-class="{on: current_notification.sender.is_online}"></span>
+                                        </figure>
+                                        <a ng-href="#/public/{{ current_notification.sender.username }}" class="profile-name ng-binding">{{ current_notification.sender.full_name }}</a>
+                                        <div class="profile-item ng-binding">{{ current_notification.sender.college }}</div>
+                                        <div class="profile-item ng-binding">
+                                            {{ current_notification.sender.year }} · {{ current_notification.sender.age }} y/o
+                                        </div>
+                                        <a ng-show="user.profile().id != item.owner.id && user.connected_to(current_notification.sender.id)" class="icon-check active" ng-click="user.disconnect(current_notification.sender);"></a>
+                                        <a ng-show="user.profile().id != item.owner.id && ! user.connected_to(current_notification.sender.id)" class="icon-check" ng-click="user.connect(current_notification.sender);"></a>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="form-group">
+                                            <p class="item-price ng-binding">${{ current_notification.sender.grand_total }}</p>
+                                            <p class="profile-item profile-info-item ng-binding">{{ current_notification.sender.created_at }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="rating">
+                                                <div class="ratings-container">
+                                                    <span class="ratings-wrapper">
+                                                        <span class="ratings" style="width:80%;"></span>
+                                                    </span>
+                                                    <span class="ratings-count">(4)</span>
+                                                </div>
+                                            </div>
+                                            <p class="profile-item profile-info-item ng-binding">Last seen: {{ current_notification.sender.last_seen }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <ul class="connection-list">
+                                                <li ng-repeat="connection in current_notification.sender.connections | limitTo: 4">
+                                                    <figure><a href="/#/public/{{connection.username}}"><img ng-src="{{connection.picture}}"></a></figure>
+                                                </li>
+                                                <li ng-show="current_notification.sender.connections.length - 4 > 0"><span class="more-connections">{{current_notification.sender.connections.length}}</span></li>
+                                                <li ng-show="current_notification.sender.connections.length == 0"><span class="more-connections" style="font-size: 12px; font-weight: 400;">0 connections</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="item item-knack-cus" ng-class="{'right': nowState=='item' || nowState=='knack'}" ng-hide="current_notification.type == 'CN'">
+                                    <div class="item-header">
+                                        <a href="" title="I’ll be your sports buddy, and teach you climbing" class="item-photo ">
+                                            <img src="images/sample/2.jpg" ng-src="images/sample/2.jpg" alt="I\’ll be your sports buddy, and teach you climbing">
+                                        </a>
+                                        <span class="item-price ng-binding">$30</span>
+                                        <div class="item-fav">
+                                            <a class="icon-flip" title="Flip" ng-click="flip(item)">Flip</a>
+                                        </div>
+                                        <div class="gradient-layout"></div>
+                                    </div>
+                                    <div class="item-content">
+                                        <h2 class="item-title">
+                                            <a class="font-5 ng-binding" ui-sref="knack-offered-single({id:item.id})" href="#/knacks/offered/4">Brand New Tennis Shoes</a>
+                                        </h2>
+                                        <p class="item-bidtext ng-binding">Hey everyone, I'm Automn, yeah like the season. I am currently offering computer repair. I charge $65/hr or a flat fee if the iss ....</p>
+                                        <div class="item-meta" >
+                                            <div class="ratings-container sm">
+                                                <div class="ratings-wrapper">
+                                                    <div style="width: 80%;" class="ratings" ng-style="{'width': (item.rate * 100 / 5) + '%'}"></div>
+                                                </div>
+                                                <span class="ratings-count ng-binding">(4)</span>
+                                            </div>
+                                            <span class="dot-separator"></span>
+                                            <div class="item-category">
+                                                <a class="ng-binding" href="" title="Udelivery"> Utech</a>
+                                            </div>
+                                        </div>
+                                        <div class="item-owner" ng-click="">
+                                            <figure>
+                                                <img src="images/users/user1.jpg" ng-src="images/users/user1.jpg"  alt="Katy Perry">
+
+                                            </figure>
+                                            <div class="owner-meta">
+                                                <h3 class="no-margin"><a class="ng-binding font-6 bold blue-color2" href="">Automn Barnsby</a><span class="owner-status on" ></span></h3>
+                                                <div class="left gray-color font-6 ng-binding">Harvard Univsersity</div>
+                                            </div><!-- End .owner-meta -->
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>    
+                    </div>
+                </div><!-- End .chats-wrapper -->
+                <footer ng-show="current_notification != null">
+                    <form ng-submit="submit(new_message)">
+                        <div class="input-group">
+                            <input type="text" class="form-control font-5" ng-model="new_message" placeholder="Your message..." autofocus required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-custom" type="submit"><strong>SEND</strong></button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="footer-wrapper">
+                        <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+                        <ul class="footer-menu clearfix">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Feedback</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>                        
+                        <div class="social-icons">
+                            <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                            <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                            <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                        </div><!-- End .social-icons -->                        
+                    </div>
+                </footer>
+            </div><!-- End .chats-container -->
+            <div class="not-found" ng-if="notifications.length==0">You don't have any notifications</div>
+        </div>
+        <div class="connects-containder messages-container" ng-if="nowContainer=='connections'">
+            <div class="chats-list contact-list" ng-if="user.profile().connections.length>0">
+                <ul ng-repeat="connection in user.profile().connections track by $index">
+                    <li class="item-owner contact-item" ng-click="select_connection(connection)">
+                        <figure>
+                            <a href="/#/public/{{connection.username}}"><img ng-src="{{ connection.picture || 'images/users/no_avatar.png' }}" class="contact-list-picture" alt="{{ connection.full_name }}"></a>
+                            <span class="owner-status" ng-class="{'on': connection.is_online }"></span>
+                        </figure>
+                        <div class="owner-meta">
+                            <h3><a href="#/public/{{ connection.username }}">{{ connection.full_name }}</a><span class="item-date"></span></h3>
+                            <div class="owner-state-content">
+                                <img class="right contact-state-icon" src="images/sprites-images/check-green.png" ng-click="$event.stopPropagation(); user.disconnect(connection); select_connection(null);">
+                            </div>    
+                        </div><!-- End .owner-meta -->
+                    </li>
+                </ul>
+            </div><!-- End .chats-list -->
+            <div class="chats-container" ng-if="user.profile().connections.length>0">
+                
+                <div ng-show="current_connection != null" class="chats-wrapper" perfect-scrollbar>
+                    <div id="chats-content" class="chats-content">
+                        <div class="messagege-contents-wrapper">
+                            <div class="header">
+                                <div class="icon-wrapper"></div>
+                                <div class="title"></div>
+                            </div>
+                            <div class="center">
+                                <article class="item item-profile item-profile-cus">
+                                    <div class="item-header profile-item-header">
+                                        <figure>
+                                            <a href="/#/public/{{current_connection.username}}"><img src="{{ current_connection.picture || 'images/users/no_avatar.png' }}" alt="{{ current_connection.full_name }}"></a>
+                                            <span class="owner-status profile-owner-status" ng-class="{on: current_connection.is_online}"></span>
+                                        </figure>
+                                        <a ng-href="#/public/{{ current_connection.username }}" class="profile-name ng-binding">{{ current_connection.full_name }}</a>
+                                        <div class="profile-item ng-binding">{{ current_connection.college }}</div>
+                                        <div class="profile-item ng-binding">
+                                            {{ current_connection.year }} · {{ current_connection.age }} y/o
+                                        </div>
+                                        <a class="icon-check active" ng-click="user.disconnect(current_connection); select_connection(null);"></a>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="form-group">
+                                            <p class="item-price ng-binding">${{ current_connection.grand_total }}</p>
+                                            <p class="profile-item profile-info-item ng-binding">{{ current_connection.created_at }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="rating">
+                                                <div class="ratings-container">
+                                                    <span class="ratings-wrapper">
+                                                        <span class="ratings" style="width:80%;"></span>
+                                                    </span>
+                                                    <span class="ratings-count">(4)</span>
+                                                </div>
+                                            </div>
+                                            <p class="profile-item profile-info-item ng-binding">Last seen: {{ current_connection.last_seen }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <ul class="connection-list">
+                                                <li ng-repeat="c in current_connection.connections | limitTo: 4">
+                                                    <figure><img ng-src="{{c.picture}}"></figure>
+                                                </li>
+                                                <li ng-show="current_connection.connections.length - 4 > 0"><span class="more-connections">{{current_connection.connections.length}}</span></li>
+                                                <li ng-show="current_connection.connections.length == 0"><span class="more-connections" style="font-size: 12px; font-weight: 400;">0 connections</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>    
+                    </div>
+                </div><!-- End .chats-wrapper -->
+                <footer ng-show="current_connection != null">
+                    <form ng-submit="submit(new_message)">
+                        <div class="input-group">
+                            <input type="text" class="form-control font-5" ng-model="new_message" placeholder="Your message..." autofocus required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-custom" type="submit"><strong>SEND</strong></button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="footer-wrapper">
+                        <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+                        <ul class="footer-menu clearfix">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Feedback</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>                        
+                        <div class="social-icons">
+                            <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                            <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                            <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                        </div><!-- End .social-icons -->                        
+                    </div>                    
+                </footer>
+            </div><!-- End .chats-container -->
+            <div class="not-found" ng-if="user.profile().connections.length==0">You don't have any connections</div>
+        </div>  
+    </div><!-- End .container -->
+</div><!-- End #content -->    
+
+<!--
+<div class="sidebarbg-mobile"></div><!-- end .sidebarbg-mobile -->

@@ -1,0 +1,28 @@
+<form class="contact-me-modal-form" ng-show="!sent_message">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button> 
+        <h4 class="modal-title" id="modallabel4">{{title}} {{contact_user.name}}</h4>
+    </div><!-- End .modal-header -->
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label">YOUR MESSAGE</label>
+            <textarea class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-lg btn-custom btn-block" ng-click="sendMessage()"><strong>{{button_title}}</strong></button>
+    </div><!-- End .modal-footer -->
+</form>
+<form class="agreed-modal-form" ng-show="sent_message">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <img class="modal-header-img" src="images/login_logo.png">
+    </div><!-- End .modal-header -->
+    <div class="modal-body ">
+        <div class="font-1 heavy-blue-color ">Great!</div>
+        <div class="font-1 heavy-blue-color">{{contact_user.name}} WILL contact you shortly!</div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-custom " ng-click="continue()"><strong>CONTINUE</strong>
+            </button>
+        </div><!-- End .modal-footer -->
+</form>

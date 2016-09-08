@@ -1,0 +1,42 @@
+<!--register-email-modal-->
+<form class="payment-modal-form">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="">Buy From <span class="blue-color">Automn Barnsby</span></h4>
+    </div><!-- End .modal-header -->
+    <div class="modal-body ">
+        <div class="row" >
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-item">
+                <div class="modal-body-title font-3">Payment Options</div>
+                <div class="payment-item" ng-repeat="item in paymentItemList track by $index" ng-class="{'payment-item-active': $index==activeIndex}" ng-click="activeOption($index)">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-6 col-sm-2 col-xs-2">
+                            <div class="radio-option-item" >
+                                <i class="fa fa-circle" ng-class="{'radio-option-active': $index==activeIndex, 'margin-top-2px': $index==1}"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <img class="" src="{{item.img}}" />
+                            <label class="input-desc">{{item.detail}}</label>
+                        </div>    
+                    </div>    
+                </div>  
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-item">
+                <div class="modal-body-title font-3">Order Summary</div>
+                <div class="order-body">
+                    <img src="images/sample/knack1.jpg" />
+                    <h2 class="item-title" ng-click="postFunc()">
+                        <a class="font-5"  >I will deliver food with my bike anywhere in campus</a>
+                    </h2>
+                    <div class="font-3">Total: $25.90</div>
+                </div>    
+            </div>    
+        </div>   
+    </div><!-- End .modal-body -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-lg btn-custom btn-block" ng-click="paidCash()"><strong>PAY $25.90 IN CASH</strong>
+            <i class="icon-plus"></i>
+        </button>
+    </div><!-- End .modal-footer -->
+</form>

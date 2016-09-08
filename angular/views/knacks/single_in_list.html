@@ -1,0 +1,98 @@
+<div class="flipper">
+    <article class="item front" ng-class="{'flip-action-front': item.flip}">
+        <div class="item-header">
+            <ul photo-slider data-gallery="false" photo-click="goToKnack(item.id)">
+                <li ng-repeat="photo in item.thumbnails" data-thumb="{{photo}}" class="knack-slide-item">
+                    <a href="" title="{{item.name}}" class="item-photo">
+                        <img alt="{{ item.name }}" ng-src="{{ photo }}" />
+                    </a>
+                    <span class="item-price">${{item.price}}/{{(item.how_charge == 'Flat Fee')? 'Flat Fee' : 'Hour'}}</span>
+                    <div class="gradient-layout"></div>
+                </li>
+            </ul>
+
+            <!-- <div class="item-fav">
+                <a class="icon-flip" title="Flip" ng-show="current_type != 'knack-ideas'" ng-click="flip(item)">Flip</a>
+            </div> -->
+        </div>
+        <div class="item-content">
+            <h2 class="item-title">
+                <span style="max-height: 30px;">
+                    <a ui-sref="{{ current_type }}-single({id:item.id})" href="" title="{{item.name}}">
+                        <p>{{ item.name}}</p>
+                    </a>
+                </span>
+            </h2>
+            <p class="item-desc">{{item.description}}</p>
+            <div class="line-separator" ng-show="current_type != 'knack-ideas'"></div>
+            <div class="item-meta" ng-hide="current_type == 'knack-ideas'">
+                <div class="ratings-container">
+                    <div class="ratings-wrapper">
+                        <div ng-style="{'width':(item.rating * 100 / 5) + '%'}" class="ratings"></div><!-- End .ratings -->
+                    </div><!-- End .ratings-wrapper -->
+                    <span class="ratings-count" ng-if="item.rating_count > 0">({{item.rating_count}})</span>
+                </div><!-- End .ratings-container -->
+                
+                <div class="item-category">
+                    <span class="dot-separator"></span>
+                    <a title="{{item.category_name}}" href="#">{{item.category_name}}</a>
+                </div><!-- End .item-tags -->
+            </div>
+            <div class="item-action" ng-show="current_type == 'knack-ideas'">
+                <a ng-click="openBusinessModal(item.business_model)" href="javascript:void(0);" class="btn btn-sm btn-custom btn-block">
+                    <strong>Business Model</strong>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <article class="item back item-profile" ng-class="{'flip-action-back': item.flip}">
+        <div class="item-header text-center">
+            <figure class="item-avatar" ng-if="!item.anonymous" ng-click="showVideoModal(item.video_url)">
+                <a href="/#/public/{{item.owner.username}}"><img ng-src="{{item.owner.picture}}" alt="User" title="{{item.owner.full_name}}"></a>
+                <span class="owner-status" ng-class="{'on': item.owner.is_online}"></span>
+                <a href="" class="play-video"></a>
+            </figure>
+            <figure class="item-avatar" ng-if="item.anonymous" ng-click="showVideoModal(item.video_url)">
+                <img ng-src="images/U.png" alt="User" title="{{item.username}}">
+                <span class="owner-status"></span>
+                <a href="" class="play-video"></a>
+            </figure>
+            <a class="profile-name" ng-if="!item.anonymous" ng-href="/#/public/{{item.owner.username}}">{{item.owner.full_name}}</a>
+            <a class="profile-name" ng-if="item.anonymous">{{item.username}}</a>
+            <div class="profile-item gray-color">{{item.owner.college}}</div>
+            <div class="profile-item gray-color">
+                {{ item.owner.year }} &middot; {{item.owner.age}} y/o
+            </div>
+            <a ng-show="user.profile().id != item.owner.id && user.connected_to(item.owner.id)" class="icon-check active" ng-click="user.disconnect(item.owner);"></a>
+            <a ng-show="user.profile().id != item.owner.id && ! user.connected_to(item.owner.id)" class="icon-check" ng-click="user.connect(item.owner);"></a>
+            <!-- <a class="icon-flip" ng-click="flip(item)"></a> -->
+        </div>
+        <div class="item-content">
+            <div class="form-group">
+                <p class="item-price">${{ item.owner.grand_total }}</p>
+                <p class="profile-item">{{ item.owner.created_at }}</p>
+            </div>
+            <div class="form-group">
+                <div class="rating">
+                    <div class="ratings-container sm">
+                        <span class="ratings-wrapper">
+                            <span class="ratings" ng-style="{'width': '0%'}"></span>
+                        </span>
+                        <span class="ratings-count gray-color">(0)</span>
+                    </div>
+                </div>
+                <p class="profile-item">Last seen: {{item.owner.last_seen}}</p>
+            </div>
+            <div class="form-group">
+                <ul class="connection-list">
+                    <li ng-repeat="connection in item.owner.connections | limitTo: 4">
+                        <figure><a href="/#/public/{{connection.username}}"><img ng-src="{{connection.picture || 'images/users/no_avatar.png'}}"></a></figure>
+                    </li>
+                    <li ng-show="item.owner.connections.length - 4 > 0"><span class="more-connections">{{item.owner.connections.length}}</span></li>
+                    <li ng-show="item.owner.connections.length == 0"><span class="more-connections" style="font-size: 12px; font-weight: 400;">0 connections</span></li>
+                </ul>
+            </div>
+        </div>
+    </article>
+</div>

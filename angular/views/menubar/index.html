@@ -1,0 +1,47 @@
+<aside class="menubar" role="complementary" ng-controller="menubarCtrl">
+    <div class="sidebar-wrapper" perfect-scrollbar>
+        <div class="menubar-body">
+            <div class="item" ng-click="clickKnack()">
+                <img src="images/knacks-icon.png">
+                <div class="font-4 bold">Knacks</div>
+            </div>
+            <div class="item no-border-bottom" ng-click="clickMarketPlace()">
+                <img src="images/marketplace-icon.png">
+                <div class="font-4 bold">Marketplace</div>
+            </div>
+            <div class="outer">
+                <div class="mobile-show header-btn-wrapper">
+                    <a href="javascript:void(0);" class="btn btn-custom7 btn-lger wow shake" ng-click="getStart()" ng-hide="is_authenticated">Become a Member</a>
+
+                    <a href="javascript:void(0);" class="btn btn-custom btn-custom12 btn-lger wow shake" ng-hide="is_authenticated" ng-click="openLoginModal()">Login to Uknack</a>
+
+                    <a href="javascript:void(0);" class="btn btn-custom btn-custom12 btn-lger wow shake" ng-show="is_authenticated" ng-click="signout()()">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <!--<ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>-->
+                <p class="copyright">&copy; 2016 uKnack. All rights reserved</p>
+                <p class="say-hello">
+                    <span><a href="#">About</a> | </span>
+                    <span><a href="#">Feedback</a> | </span>
+                    <span><a href="#">Terms</a> | </span>
+                    <span><a href="#">Privacy</a></span>
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                    <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                    <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                </div><!-- End .social-icons -->
+            </div>
+        </footer>
+    </div><!-- End .sidebar-wrapper -->
+
+</aside>

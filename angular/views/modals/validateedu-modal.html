@@ -1,0 +1,22 @@
+<form name="form" class="register-modal-form" novalidate ng-submit="send(form)">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button> 
+        <img class="modal-header-img" src="images/login_logo.png"/>
+        <h4 class="modal-title" ng-bind-html="title"></h4>
+        <h5 class="modal-subtitle">YOU MUST VALIDATE YOUR .EDU EMAIL BELOW</h5>
+    </div><!-- End .modal-header -->
+    <div class="modal-body top-10">
+        <div class="form-group">
+            <div class="well" ng-show="message">
+                {{ message }}
+            </div>
+        </div>
+        <div class="form-group facebook-btn-wrapper input-info-wrapper">
+            <input name="email" type="email" class="form-control input-lg register-input im-icon" placeholder="Enter your .edu email address" ng-model="user.email" required>
+            <button class="info-btn" ng-click="openInfoModal()"></button>
+        </div><!-- End .from-group -->
+    </div><!-- End .modal-body -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-lg btn-custom btn-block"><strong>SEND MY INVITATION</strong></button>
+    </div><!-- End .modal-footer -->
+</form>

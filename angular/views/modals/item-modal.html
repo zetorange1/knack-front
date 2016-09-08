@@ -1,0 +1,202 @@
+<form id="item_modal_form" class="form knack-modal-form" novalidate name="postForm" ng-show="!posted_item">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modallabel">{{getModalTitle()}}</h4>
+    </div><!-- End .modal-header -->
+    <div class="modal-body">
+        <!-- <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <label class="input-desc">Would you like to be ANONYMOUS?</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <div class="radio-button">
+                        <input id="anonymous-yes" type="radio" name="anonymous" ng-value="true" ng-model="item.anonymous">
+                        <label for="anonymous-yes"><span></span>YES</label>
+                        <input id="anonymous-no" type="radio" name="anonymous" ng-value="false" ng-model="item.anonymous">
+                        <label for="anonymous-no"><span></span>NO</label>
+                        <a class="info" ng-click="openAnonymouseInfoModal()"></a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="form-group" ng-show="item.anonymous == true">
+            <label for="item-username" class="input-desc">CHOOSE YOUR USERNAME</label>
+            <input type="text" class="form-control input-lg" id="item-username" ng-model="item.username" placeholder="&ldquo;e.g. Loving Panda&rdquo;">
+        </div><!-- End .from-group -->
+
+        <div class="form-group">
+            <label for="item-subject" class="input-desc">ITEM HEADLINE</label>
+            <input type="text" class="form-control input-lg" id="item-subject" name="itemsubject" ng-model="item.name" placeholder="&ldquo;E.g. iPhone 6S + Case + 12/m Apple Care&rdquo;" required>
+            <p class="arrow_box animated" ng-show="(postForm.itemsubject.$invalid && postForm.itemsubject.$dirty) || (postForm.itemsubject.$invalid && showError)">
+                Please enter a title for your item request
+            </p>
+            <!--
+            <span class="error" ng-show="item.name.$error.required">Required!</span>
+            -->
+        </div><!-- End .from-group -->
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group" ng-class="{'ng-invalid':!category_selected}">
+                    <label class="input-desc">ITEM CATEGORY</label>
+                    <div class="dropdown-box-container">
+                        <div class="dropdown-box form-control" ng-init="isCategoriesBoxOpened=false;" ng-class="{'open': isCategoriesBoxOpened == true}" outside-click="isCategoriesBoxOpened=false">
+                            <div class="dropdown-box-title" ng-click="isCategoriesBoxOpened = !isCategoriesBoxOpened; category_selected=true">
+                                {{category_name}}
+                            </div>
+                            <div class="dropdown-box-content">
+                                <div class="col-md-6 category-item" ng-repeat="category in itemCategories" ng-click="$parent.category_name=category.name; $parent.item.category=category.id; $parent.isCategoriesBoxOpened=false;">
+                                    <div class="radio-button">
+                                        <input type="radio" value="{{category.id}}" name="itemCategory" ng-checked="$parent.item.category==category.id">
+                                        <label><span></span>{{category.name}}</label>
+                                    </div>
+                                </div>
+                                <!--
+                                <div ng-repeat="category in itemCategories">
+                                    <span ng-click="$parent.categoriesBoxTitle=category.name; $parent.knack.category=category.id; $parent.isCategoriesBoxOpened = !$parent.isCategoriesBoxOpened">{{category.name}}</span>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <p class="arrow_box" ng-if="!category_selected">
+                        Please tell us about your item category
+                    </p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <label for="item-price" class="input-desc" ng-show="item.type=='O'">PRICE</label>
+                    <label for="item-price" class="input-desc" ng-show="item.type=='W'">WILLING TO PAY</label>
+                    <input type="text" class="form-control input-lg" id="item-price" name="itemprice" ng-model="item.price" required>
+                    <p class="arrow_box animated" ng-show="(postForm.itemprice.$invalid && postForm.itemprice.$dirty) || (postForm.itemprice.$invalid && showError)">
+                        Please fill this field
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="item-message" class="input-desc">ITEM DETAIL</label>
+            <div class="textarea-wrapper">
+                <textarea name="itemmessage" id="item-message" cols="30" rows="2" class="form-control" ng-model="item.description" placeholder="&ldquo;E.g. Selling a brand new iPhone 6S w/ 12 months Apple Care. I already have a 6S and got a new one when I switched jobs. Message me if you're interested.!&rdquo;" required></textarea>
+                <figure class="textarea-icon first">
+                    <i class="icon-camera"></i>
+                    <input type="file" class="fileupload" image="cropperImages[0]" fd-input>
+                </figure>
+                <p class="arrow_box animated" ng-show="(postForm.itemmessage.$invalid && postForm.itemmessage.$dirty) || (postForm.itemmessage.$invalid && showError)">
+                    Tell us more about your item
+                </p>
+                <!--
+                <a href="#" class="textarea-icon last" title="Video">
+                    <i class="icon-video-camera"></i>
+                </a>
+                -->
+            </div><!-- End .textarea-wrapper -->
+        </div><!-- End .from-group -->
+
+        <div class="row">
+            <div class="col-xs-12 col-md-7">
+                <div class="form-group" ng-class="{'ng-invalid':!photo_selected}">
+                    <label class="input-desc">UPLOAD UP TO FIVE IMAGES</label>
+                    <div class="upload-image active">
+                        <img ng-src="{{ cropperImages[0] || item.photo0 || '//:0' }}" width="46px" height="46px" style="vertical-align: initial;">
+                        <input id="photo0" type="file" class="fileupload" image="cropperImages[0]" fd-input>
+                    </div>
+                    <div class="upload-image">
+                        <img ng-src="{{cropperImages[1] || item.photo1 || '//:0' }}" width="46px" height="46px" style="vertical-align: initial;">
+                        <input id="photo1" type="file" class="fileupload" image="cropperImages[1]" fd-input>
+                    </div>
+                    <div class="upload-image">
+                        <img ng-src="{{ cropperImages[2] || item.photo2 || '//:0' }}" width="46px" height="46px" style="vertical-align: initial;">
+                        <input id="photo2" type="file" class="fileupload" image="cropperImages[2]" fd-input>
+                    </div>
+                    <div class="upload-image">
+                        <img ng-src="{{ cropperImages[3] || item.photo3 || '//:0' }}" width="46px" height="46px" style="vertical-align: initial;">
+                        <input id="photo3" type="file" class="fileupload" image="cropperImages[3]" fd-input>
+                    </div>
+                    <div class="upload-image">
+                        <img ng-src="{{ cropperImages[4] || item.photo4 || '//:0' }}" width="46px" height="46px" style="vertical-align: initial;">
+                        <input id="photo4" type="file" class="fileupload" image="cropperImages[4]" fd-input>
+                    </div>
+                    <p class="arrow_box" ng-if="!photo_selected">
+                        Please upload at least one image
+                    </p>
+                </div><!-- End .from-group -->
+            </div>
+            <div class="col-xs-12 col-md-5"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="item-schedule" class="input-desc">WHAT'S YOUR SCHEDULE LIKE?</label>
+            <input type="input" id="item-schedule" name="itemschedule" ng-model="item.schedule" class="form-control input-lg" placeholder="&ldquo;e.g. I have class in the morning so anytime after 2pm is good&rdquo;" required>
+            <p class="arrow_box" ng-if="(postForm.itemschedule.$invalid && postForm.itemschedule.$dirty) || (postForm.itemschedule.$invalid && showError)">
+                Please tell us what you're schedule looks like
+            </p>
+        </div><!-- End .from-group -->
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <label class="input-desc" ng-show="item.type=='O'">ARE YOU WILLING TO DELIVER?</label>
+                    <label class="input-desc" ng-show="item.type=='W'">DO YOU NEED THIS ITEM TO BE DELIVERED?</label>
+                    <div class="radio-button">
+                        <input id="willing-yes" type="radio" name="willing" ng-value="true" ng-model="item.willing_to_travel">
+                        <label for="willing-yes"><span></span>YES</label>
+                        <input id="willing-no" type="radio" name="willing" ng-value="false" ng-model="item.willing_to_travel">
+                        <label for="willing-no"><span></span>NO</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6" ng-show="item.willing_to_travel">
+                <div class="form-group">
+                    <label class="input-desc">HOW FAR?</label>
+                    <div class="dropdown-box-container">
+                        <div class="dropdown-box form-control" ng-init="isScheduleBoxOpened=false;milesTitle='On Campus';" ng-class="{'open': isScheduleBoxOpened == true}" outside-click="isScheduleBoxOpened=false">
+                            <div class="dropdown-box-title" ng-click="isScheduleBoxOpened = !isScheduleBoxOpened">{{item.id ? item.miles : milesTitle}}</div>
+                            <div class="dropdown-box-content" ng-show="isScheduleBoxOpened">
+                                <div ng-click="$parent.item.miles=m.name; $parent.milesTitle=m.name;$parent.isScheduleBoxOpened=false;" ng-repeat="m in milesCategories"><span>{{m.name}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- End .modal-body -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-lg btn-custom btn-block" ng-click="save_item()" >
+            <strong>{{getSubmitButtonTitle()}}</strong>
+            <i class="icon-plus" ng-show="action=='create'"></i>
+        </button>
+    </div><!-- End .modal-footer -->
+</form>
+<form class="agreed-modal-form" ng-show="posted_item">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <img class="modal-header-img" src="images/login_logo.png">
+    </div><!-- End .modal-header -->
+    <div class="modal-body ">
+        <div ng-show="item.type == 'O'">
+            <div class="font-1 heavy-blue-color ">Awesome!</div>
+            <div class="font-1 heavy-blue-color">You'll get a message as soon as </div>
+            <div class="font-1 heavy-blue-color">someone is interested in your item!</div>
+        </div>
+        <div ng-show="item.type == 'W'">
+            <div class="font-1 heavy-blue-color ">Great!</div>
+            <div class="font-1 heavy-blue-color">Knackers will contact you shortly  </div>
+            <div class="font-1 heavy-blue-color">about your item.</div>
+        </div>
+    </div><!-- End .modal-body -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-custom " ng-click="sellMoreItems()">
+            <strong ng-show="item.type == 'O'">Sell More Items</strong>
+            <strong ng-show="item.type == 'W'">Request More Items!</strong>
+            <i class="icon-plus"></i>
+        </button>
+    </div><!-- End .modal-footer -->
+</form>

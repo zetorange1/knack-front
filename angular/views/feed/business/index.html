@@ -1,0 +1,278 @@
+
+    <div id="content" role="main" ng-class="{single: single_knack }" style="background-color: #ebf2f3">
+        <div ng-hide="single_knack">
+            <div class="top-filter-container">
+                <div class="container">
+                    <div class="filter-row">
+                        <div class="filter-cell search-cell">
+                            <form class="search-form" role="search">
+                                <input type="search" class="form-control" ng-model="filter.search_text" placeholder="Search by keyword or classmate name">
+                                <input type="button" value="Search" class="search-btn" title="Search Now" ng-click="full_search()">
+                                <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+                            </form>
+                            <a href="#" class="mobile-search-btn" title="Search now">Seach now</a>
+
+                        </div><!-- End .filter-cell -->
+                        
+                        <div class="filter-cell order-cell feed-filter" outside-click="isShowSortContent = false">
+                            <!--
+                            <select name="#" class="form-control" id="item-sort" ng-model="filter.sort_by">
+                                <option value="recently" class="gray-color">Most recent</option>
+                                <option value="rate" class="gray-color">Highest Rated</option>
+                                <option value="shared" class="gray-color">Most Shared</option>
+                                <option value="connections" class="gray-color">Favorite Knackers</option>
+                            </select>
+                        -->
+                            <div class="sortby-text gray-color" ng-click="isShowSortContent = !isShowSortContent">Sort by : {{selectedItem}}</div >
+                            <div class="sortby-content" ng-show="isShowSortContent">
+                                <div class="sort-item gray-color" ng-repeat="sortItem in sortList track by $index" ng-click="selectItem($index)" >
+                                    {{sortItem}}
+                                </div>
+                            </div>
+                        </div><!-- End .filter-cell -->
+                        <div class="filter-cell layout-cell owner-img">
+                            <figure>
+                                <img src="images/users/user1.jpg" alt="Derek Wilson" >
+                            </figure>
+                        </div><!-- End .filter-cell -->
+                    </div><!-- End .top-filter-row -->
+                </div><!-- end .container -->
+            </div><!-- End .top-filter-container -->
+
+            <div class="container" ng-click="hidePopups()">
+                <p class="content-info content-info-text"><strong>{{ feeds_total }}</strong> business conversations found in Leadership</p>
+
+                <div class="row feed-container feed-wrapper">
+                    <div class="feed-header">
+                        <div class="check-dropdown-box" outside-click="isChennelBoxOpened = false" ng-class="{'open': isChennelBoxOpened == true}">
+                            <div class="channel-title gray-color" ng-click="isChennelBoxOpened = !isChennelBoxOpened">
+                               Select a #channel
+                            </div>
+                            <div class="sidebar-wrapper channel-content" perfect-scrollbar ps-option="{watcher: channels}">
+                                <div ng-repeat="channel in channels">
+                                    <!--*****-->
+                                    <div class="checkbox channel-check" > <!---->
+                                      <label class="custom-checkbox-wrapper">
+                                        <span class="custom-checkbox-container">
+                                            <input type="checkbox" name="categories" checklist-model="filter.selected_categories" >
+                                            <span class="custom-checkbox-icon"></span>
+                                        </span>
+                                       <span>{{ channel.name }}</span>
+                                      </label>
+                                    </div><!-- End .checkbox -->
+                                </div><!-- End .cat-col -->
+                            </div>    
+                        </div>
+                        <div class="widget widget-action post-btn-wrapper">
+                            <a href="javascript:void(0);" class="btn btn-lg btn-custom btn-block" >
+                                <strong>
+                                    POST 
+                                </strong>
+                                <i class="icon-plus"></i>
+                            </a>
+                        </div><!-- End .widget -->
+                        <div class="message-input-wrapper">
+                            <form class="input-form" role="">
+                                <input type="input" class="form-control message-input"  placeholder="Post a message about your business...">
+                                <a href="#" class="emoticon-btn "><i class="fa fa-smile-o"></i>
+                                </a>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div masonry reload-on-show id="item-container" class="feed-item-container">
+                        <div  class="col-xs-12 item-wrapper " ng-show="true" ng-repeat = "feed in feedList track by $index" >
+                            <div class="review">
+                                <div class="review-wrapper clearfix">
+                                    <div class="item-owner">
+                                        <figure>
+                                            <img src="{{feed.picture}}" alt="Derek Wilson">
+                                            <span class="owner-status on"></span>
+                                        </figure>
+                                        <div class="owner-meta feed-owner">
+                                            <a class="owner-name" ng-click="showInfoBox($index)">{{feed.name}}</a>
+                                            <i class="fa fa-circle gray-color"></i>
+                                            <div class="meta-item gray-color">{{feed.college}}</div>
+                                            <i class="fa fa-circle gray-color"></i>  
+                                            <div class="meta-item gray-color">{{feed.time}}</div>
+                                        </div><!-- End .owner-meta -->
+                                    </div><!-- End .item-owner -->
+                                </div><!-- End .review-wrapper -->
+                                <div class="review-content feed-review-content">
+                                    <div class="meta-item gray-color font-bold">#{{feed.id}}</div>
+                                    <i class="fa fa-circle gray-color"></i>
+                                    <div class="feed-text" >
+                                        {{feed.text}}
+                                    </div>
+                                    <div class="meta-item-footer">
+                                        <a class="status-item gray-color" ng-click="toggleSubFeed($index)" >
+                                            <i class="fa fa-star-o"></i>
+                                            {{feed.star}}
+                                        </a>
+                                        <a class="status-item gray-color" ng-click="toggleSubFeed($index)">
+                                            <i class="fa fa-comment-o"></i>
+                                            {{feed.messageCnt}}
+                                        </a>
+                                        <a class="status-item gray-color"  >
+                                            <i class="fa fa-share-alt" ng-click="toggleSocialBox($index)"></i>
+                                            {{feed.shares}}
+                                        </a>
+                                        <a class="status-item gray-color"  ng-click="toggleMsgInput($index)">
+                                            Reply
+                                        </a>
+                                        <div class="social-popup" ng-show="feed.showShares">
+                                            <div class="row item-facebook">
+                                                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                                                <div class="meta-item gray-color">
+                                                    Share on Facebook
+                                                </div>
+                                            </div>  
+                                            <div class="row item-twitter">
+                                                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                                                <div class="meta-item gray-color">
+                                                    Share on Twitter
+                                                </div>
+                                            </div> 
+                                            <div class="row item-instagram">
+                                                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                                                <div class="meta-item gray-color">
+                                                    Share on Instagram
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                    <div class="row feed-container sub-feed" ng-show="feed.showSubFeed">
+                                        <div masonry reload-on-show id="item-container" class="feed-item-container">
+                                            <div  class="col-xs-12 item-wrapper " ng-show="true" ng-repeat="subfeed in feed.subfeedList">
+                                                <div class="review">
+                                                    <div class="review-wrapper clearfix">
+                                                        <div class="item-owner">
+                                                            <figure>
+                                                                <img src="{{subfeed.picture}}" alt="Derek Wilson">
+                                                                <span class="owner-status on"></span>
+                                                            </figure>
+                                                            <div class="owner-meta feed-owner">
+                                                                <a class="owner-name" href="#" >{{subfeed.name}}</a>
+                                                                <i class="fa fa-circle gray-color"></i>
+                                                                <div class="meta-item gray-color font-bold"> {{subfeed.college}}</div>
+                                                                <i class="fa fa-circle gray-color"></i>  
+                                                                <div class="meta-item gray-color font-bold"> {{subfeed.time}}</div>
+                                                            </div><!-- End .owner-meta -->
+                                                        </div><!-- End .item-owner -->
+                                                    </div><!-- End .review-wrapper -->
+                                                    <div class="review-content feed-review-content sub-feed">
+                                                        <div class="meta-item gray-color font-bold">{{subfeed.id}}</div>
+                                                        <i class="fa fa-circle gray-color"></i>
+                                                        <div class="feed-text">
+                                                        {{subfeed.text}}
+                                                        </div>
+                                                        <div class="meta-item-footer">
+                                                             <a class="status-item gray-color" href="#" >
+                                                                <i class="fa fa-thumbs-up"></i>
+                                                                {{subfeed.like}}
+                                                            </a>
+                                                            <a class="status-item gray-color" href="#" >
+                                                                <i class="fa fa-share-alt"></i>
+                                                                {{subfeed.shares}}
+                                                            </a>
+                                                            <a class="status-item gray-color" href="#" >
+                                                                Reply
+                                                            </a>
+                                                        </div>
+
+                                                    </div><!-- End .review-content -->
+                                                </div>
+                                            </div><!-- End .col-xs-12 -->
+                                        </div>
+                                    </div>
+                                    <div class="join-conversation" ng-show="feed.showMsgInput">
+                                        <form class="input-form" role="">
+                                            <input type="input" class="form-control message-input"  placeholder="Join the conversation">
+                                            <a href="#" class="emoticon-btn "><i class="fa fa-smile-o"></i>
+                                            </a>
+                                            <a class="send-btn" href="#">SEND</a>
+                                        </form>
+                                    </div>
+                                </div><!-- End .review-content -->
+                            </div>
+                            <div class="box-owner pop-up-owner" ng-show="feed.showInfo">
+                                <div class="item-owner">
+                                    <div class="owner-privacy">
+                                        <figure>
+                                            <img src="images/users/user1.png" alt="Jessica Morgan">
+                                            <span class="owner-status on"></span>
+                                        </figure>
+                                        <div class="owner-meta feed-owner none-margin">
+                                            <a class="owner-name none-float" href="#" >Automn Barnsby</a>
+                                            <div class="meta-item gray-color none-float small-font"> Harvard University</div>
+                                            <div class="age-wrapper">
+                                                <div class="meta-item gray-color"> Sophomre</div>
+                                                <i class="fa fa-circle gray-color"></i>  
+                                                <div class="meta-item gray-color">  22y/o</div>
+                                            </div>    
+                                        </div><!-- End .owner-meta -->
+                                        <a class="check-btn gray-color"  ng-click="hideInfoBox($index)">
+                                            <i class="fa fa-check-circle-o"></i>
+                                        </a>
+                                        <a class="refresh-btn gray-color"  >
+                                            <i class="fa fa-refresh"></i>
+                                        </a>
+                                    </div>
+                                    <div class="row info-item">
+                                        <div class="money-wrapper">
+                                            $2,014
+                                        </div>
+                                        <div class="meta-item gray-color small-font">
+                                            Since dec 2014
+                                        </div>
+                                    </div>    
+
+                                    <div class="row info-item ratings-container">
+                                        <div class="ratings-wrapper">
+                                            <div class="ratings" style="width:80%;"></div><!-- End .ratings -->
+                                            <div class="rating-value gray-color small-font">(56)</div>
+                                        </div><!-- End .ratings-wrapper -->
+                                        <div class="meta-item gray-color small-font none-float">Last seen: 2 hours ago</div>
+                                    </div><!-- End .ratings-container -->
+                                    <div class="row info-item friends-wrapper">
+                                        <figure class="small-picture">
+                                            <img src="images/users/user1.jpg" alt="Derek Wilson">
+                                        </figure>
+                                        <figure class="small-picture">
+                                            <img src="images/users/user1.jpg" alt="Derek Wilson">
+                                        </figure>
+                                        <figure class="small-picture">
+                                            <img src="images/users/user1.jpg" alt="Derek Wilson">
+                                        </figure>
+                                        <figure class="small-picture">
+                                            <img src="images/users/user1.jpg" alt="Derek Wilson">
+                                        </figure>
+                                        <div class="count  gray-color"> +34 </div>
+                                    </div>    
+                                </div><!-- End .item-owner -->
+                            </div>
+                        </div><!-- End .col-xs-12 -->
+                    </div><!-- End #item-container  -->
+                    <div class="loadmore-container text-center feed-loadmore">
+                        <a href="javascript:void(0);" class="btn-loadmore btn btn-custom3 btn-border" ng-click="show_more()">Show more knacks</a>
+                    </div>
+                </div><!-- End .row  -->
+
+                
+            </div><!-- End .container -->
+        </div>
+        <div ng-show="single_knack" ng-include="'views/knacks/single/index.html'"></div>
+        <footer class="footer page-footer">
+            <p class="say-hello">SAY HELLO</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+            </div><!-- End .social-icons -->
+            <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+        </footer>
+    </div><!-- End #content -->
+    <aside class="sidebar" role="complementary" ng-include="'views/left/main_left.html'" onload="mainLeftLoaded()"></aside>
+    <!--
+    <div class="sidebarbg-mobile"></div><!-- end .sidebarbg-mobile -->

@@ -1,0 +1,199 @@
+<div class="sidebar-wrapper-container">
+    <header class="sidebar-top">
+        <ul class="sidebar-menu clearfix">
+            <li ng-show="currentMenu=='knacks'" ng-class="{active: current_page=='knack-offered' || current_page=='knack-offered-single' || current_page=='home'}" >
+                <a href="" ui-sref="knack-offered" title="Knacks offered">
+                    <i class="smenu-icon icon-suitcase"></i>
+                    <span><span class="hidden-md">KNACKS</span> OFFERED</span>
+                </a>
+            </li>
+            <li ng-show="currentMenu=='knacks'" ng-class="{active: current_page=='knack-wanted' || current_page=='knack-wanted-single'}">
+                <a href="" ui-sref="knack-wanted" title="Knacks wanted">
+                    <i class="smenu-icon icon-qmark"></i>
+                    <span><span class="hidden-md">KNACKS</span> WANTED</span>
+                </a>
+            </li>
+            <li ng-show="currentMenu=='marketplace'" ng-class="{active: current_page=='item-offered' || current_page=='item-offered-single' || current_page=='marketplace'}">
+                <a href="" ui-sref="item-offered" title="Items wanted">
+                    <i class="smenu-icon icon-suitcase"></i>
+                    <span><span class="hidden-md">ITEM</span> OFFERED</span>
+                </a>
+            </li>
+            <li ng-show="currentMenu=='marketplace'" ng-class="{active: current_page=='item-wanted' || current_page=='item-wanted-single'}">
+                <a href="" ui-sref="item-wanted" title="Items wanted">
+                    <i class="smenu-icon icon-qmark"></i>
+                    <span><span class="hidden-md">ITEM</span> WANTED</span>
+                </a>
+            </li>
+            <li ng-show="currentMenu=='feed'" ng-class="{active: current_page=='feed-knacks' || current_page=='feed'}" style="width: 100%;">
+                <a href="" ui-sref="feed-knacks" title="Knacks Feed">
+                    <i class="smenu-icon icon-suitcase"></i>
+                    <span><span class="hidden-md">KNACKS</span> FEED</span>
+                </a>
+            </li>
+            <!--
+            <li ng-show="currentMenu=='feed'" ng-class="{active: current_page=='feed-business'}">
+                <a href="" ui-sref="feed-business" title="Business Feed">
+                    <i class="fa fa-usd usd-icon"></i>
+                    <span><span class="hidden-md">BUSINESS</span> FEED</span>
+                </a>
+            </li>
+            -->
+        </ul>
+    </header><!-- End .sidebar-menu -->
+    <div class="sidebar-wrapper" perfect-scrollbar>
+        <div class="widget" ng-hide="current_page === 'feed-knacks' || current_page === 'feed' || current_page === 'feed-business'">
+            <div class="widget-action">
+                <!-- <a href="" class="btn btn-lg btn-custom btn-border btn-block" ng-class="{'disabled': current_page=='knack-wanted' || current_page=='knack-wanted-single' || current_page=='knack-offered-single'}" ui-sref="knack-ideas" ng-show="currentMenu=='knacks'">
+                    <i class="icon-lamp"></i>
+                    <strong>
+                        KNACK IDEAS
+                    </strong>
+                </a> -->
+                <a class="btn btn-lg btn-custom btn-block" ng-click="openPostModal()" ng-show="currentMenu=='knacks' && (current_type=='knack-offered' || current_type=='knack-ideas')">
+                    <strong>SELL YOUR KNACK</strong>
+                </a>
+                <a class="btn btn-lg btn-custom btn-block" ng-click="openRequestModal()" ng-show="currentMenu=='knacks' && current_type=='knack-wanted'">
+                    <strong>REQUEST A KNACK</strong>
+                    <i class="icon-plus"></i>
+                </a>
+                <a class="btn btn-lg btn-custom btn-block" ng-click="openPostModal()" ng-show="currentMenu=='marketplace' && (current_page=='marketplace' || current_page=='item-offered' || current_page=='item-offered-single')">
+                    <strong>SELL YOUR ITEM</strong>
+                </a>
+                <a class="btn btn-lg btn-custom btn-block" ng-click="openRequestModal()" ng-show="currentMenu=='marketplace' && (current_page=='item-wanted' || current_page=='item-wanted-single')">
+                    <strong>REQUEST AN ITEM</strong>
+                    <i class="icon-plus"></i>
+                </a>
+            </div>
+        </div><!-- End .widget -->
+
+        <div class="widget widget-filter">
+            <div class="form-group">
+                <div class="left-dropdown-wrapper">
+                    <div class="check-dropdown-box left-dropdown" ng-class="{'open': isCollegeBoxOpened == true}" outside-click="isCollegeBoxOpened=false">
+                        <div class="channel-title gray-color" ng-click="isCollegeBoxOpened = !isCollegeBoxOpened">
+                           <span ng-if="!filter.college || filter.college.length == 0">Colleges</span>
+                           <span ng-if="filter.college.length > 0" ng-repeat="college in filter.college | limitTo:2">
+                                <span ng-if="$first">{{college}}</span>
+                                <span ng-if="!$first">, {{college}}</span>
+                            </span>
+                           <span ng-if="filter.college.length > 2">...</span>
+                        </div>
+                        <div class="sidebar-wrapper channel-content">
+                            <div ng-repeat="college in colleges">
+                                <!--*****-->
+                                <div class="checkbox channel-check" > <!---->
+                                    <label class="custom-checkbox-wrapper">
+                                        <span class="custom-checkbox-container">
+                                            <input type="checkbox" name="colleges" checklist-model="filter.college" checklist-value="college">
+                                            <span class="custom-checkbox-icon"></span>
+                                        </span>
+                                        <span>{{ college }}</span>
+                                    </label>
+                                </div><!-- End .checkbox -->
+                            </div><!-- End .cat-col -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="category-wrapper">
+                    <h4 class="widget-title">
+                        <span ng-show="currentMenu=='knacks'">KNACKS CATEGORIES</span>
+                        <span ng-show="currentMenu=='marketplace'">MARKETPLACE CATEGORIES</span>
+                        <!--*****-->
+                        <span ng-show="current_page === 'feed-knacks' || current_page === 'feed'">KNACKS CHANNELS</span>
+                        <span ng-show="current_page === 'feed-business'">BUSINESS CHANNELS</span> <!---->
+                        <a href="javascript:void(0);" ng-show="!isAllCategorySelected()" ng-click="selectAllCategories(true)" class="select-all">SELECT ALL</a>
+                        <a href="javascript:void(0);" ng-show="isAllCategorySelected()" ng-click="selectAllCategories()" class="select-all">UNSELECT ALL</a>
+                    </h4>
+                    <div id="category-boxes" class="clearfix" perfect-scrollbar ps-option="{theme: 'primary', suppressScrollX: true, watcher: categories}">
+                        <div class="checkbox checkbox-inline" ng-repeat="category in categories"> <!---->
+                            <label class="custom-checkbox-wrapper">
+                                <span class="custom-checkbox-container">
+                                    <input type="checkbox" name="categories" checklist-model="filter.selected_categories" checklist-value="category.id">
+                                    <span class="custom-checkbox-icon"></span>
+                                </span>
+                                <span>{{ category.name }}</span>
+                            </label>
+                        </div><!-- End .checkbox -->
+                    </div><!-- End #category-boxes -->
+                </div><!-- End .widget -->
+            </div>
+
+            <div class="form-group">
+                <div class="slider-wrapper" ng-hide="current_page === 'feed-knacks' || current_page === 'feed' || current_page === 'feed-business' || current_type == 'knack-ideas'">
+                    <h4 class="widget-title">PRICE</h4>
+                    <div slider id="price-slider" ng-from="filter.price.from" ng-to="filter.price.to" start=0 end=240 step=10 margin=30></div>
+                </div><!-- End .widget -->
+            </div>
+
+            <div class="form-group" ng-hide="current_type == 'knack-ideas'">
+                <div class="left-dropdown-wrapper" >
+                    <div class="check-dropdown-box left-dropdown" ng-class="{'open': isYearBoxOpened == true}" outside-click="isYearBoxOpened = false">
+                        <div class="channel-title gray-color" ng-click="isYearBoxOpened = !isYearBoxOpened">
+                            Year
+                        </div>
+                        <div class="sidebar-wrapper channel-content">
+                            <div ng-repeat="year in years">
+                                <!--*****-->
+                                <div class="checkbox channel-check"> <!---->
+                                    <label class="custom-checkbox-wrapper">
+                                        <span class="custom-checkbox-container">
+                                            <input type="checkbox" name="years" checklist-model="filter.year" checklist-value="year">
+                                            <span class="custom-checkbox-icon"></span>
+                                        </span>
+                                        <span>{{year}}</span>
+                                    </label>
+                                </div><!-- End .checkbox -->
+                            </div><!-- End .cat-col -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-hide="current_type == 'knack-ideas'">
+                <div class="slider-wrapper">
+                    <h4 class="widget-title">AGE</h4>
+                    <div slider id="age-slider" ng-from="filter.age.from" ng-to="filter.age.to" start=0 end=60 step=1 margin=4></div>
+                </div><!-- End .widget -->
+            </div>
+
+            <div class="form-group" ng-hide="current_type == 'knack-ideas'">
+                <div class="left-dropdown-wrapper">
+                    <div class="check-dropdown-box left-dropdown" ng-class="{'open': isGenderBoxOpened == true}" outside-click="isGenderBoxOpened = false">
+                        <div class="channel-title gray-color" ng-click="isGenderBoxOpened = !isGenderBoxOpened">
+                            Gender
+                        </div>
+                        <div class="sidebar-wrapper channel-content">
+                            <div ng-repeat="gender in genders">
+                                <!--*****-->
+                                <div class="checkbox channel-check"> <!---->
+                                    <label class="custom-checkbox-wrapper">
+                                        <span class="custom-checkbox-container">
+                                            <input type="checkbox" name="genders"  checklist-model="filter.gender" checklist-value="gender.name">
+                                            <span class="custom-checkbox-icon"></span>
+                                        </span>
+                                        <span>{{gender.name}}</span>
+                                    </label>
+                                </div><!-- End .checkbox -->
+                            </div><!-- End .cat-col -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer side-footer">
+            <p class="say-hello">SAY HELLO</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+            </div><!-- End .social-icons -->
+            <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+        </footer>
+    </div><!-- End .sidebar-wrapper -->
+
+</div><!-- End .sidebar-wrapper-container -->

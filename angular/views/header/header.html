@@ -1,0 +1,118 @@
+<header id="header" class="clearfix" ng-class="{'main-header sticky-menu': currentMenu=='home'}" role="banner" ng-controller="headerCtrl" headroom>
+    <div class="header-left clearfix"  ng-hide="currentMenu=='home'">
+        <h1 id="logo">
+            <a ui-sref="home" title="Uknack - Site Description" ng-hide="is_authenticated">
+                <img src="images/logo.png" alt="Uknack - Site Description">
+            </a>
+            <img src="images/logo.png" alt="Uknack - Site Description" ng-show="is_authenticated">
+        </h1>
+        <!--
+        <button type="button" id="sidebar-toggle-btn" class="navbar-toggle" aria-expanded="false" ng-click="toggleResponsiveSidebar()">
+        -->
+
+        <button type="button" id="left-toggle-btn" class="navbar-toggle" aria-expanded="false" ng-click="toggleSidebar()" ng-hide="currentMenu == 'profile' || currentMenu == 'profile_edit'">
+            <span class="glyphicon glyphicon-indent-left"></span>
+        </button>
+
+        <button type="button" id="left-toggle-btn" class="navbar-toggle" aria-expanded="false" ng-click="toggleSidebar()" ng-show="currentMenu == 'profile' || currentMenu == 'profile_edit'">
+            <img src="images/edit-icon.png">
+        </button>
+
+        <button type="button" id="right-toggle-btn" class="navbar-toggle" aria-expanded="false" ng-click="toggleMenubar()" >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div><!-- End .header-left -->
+    <div class="header-right"  ng-hide="currentMenu=='home'">
+        <div class="container clearfix">
+            <nav class="header-menu" role="navigation">
+                <ul class="menu clearfix">
+                    <li ng-class="{active: currentMenu=='feed'}" style="display: none;"><a href="" ng-click="clickFeed()" class="no-padding-left">Feed</a></li>
+                    <li ng-class="{active: currentMenu=='knacks'}"><a href="" ui-sref="knack-offered" style="padding-left: 0px;">Knacks</a></li>
+                    <li ng-class="{active: currentMenu=='marketplace'}"><a href="" ui-sref="marketplace">Marketplace</a></li>
+                </ul>
+            </nav><!-- End .header-menu -->
+            <div class="header-buttons" ng-hide="is_authenticated">
+                <a href="javascript:void(0);" class="navbar-btn btn btn-custom2 btn-border" title="Login Now" ng-click="openLoginModal()"><span class="hidden-xs">LOGIN</span><span class="glyphicon glyphicon-retweet visible-xs"></span></a>
+                <a href="javascript:void(0);" class="navbar-btn btn btn-custom" title="Start Knacking" ng-click="registerModal()"><strong class="hidden-xs">START KNACKING</strong><span class="glyphicon glyphicon-indent-left visible-xs"></span></a>
+            </div><!-- End .header-buttons -->
+            <div class="header-buttons clearfix" ng-show="is_authenticated">
+                <div class="profile-menu">
+                <ul class="profile-menu">
+                    <!-- <li><a  title="4 New Messages" ng-click="showPaymentBox($event)" style="padding-left: 22px;">
+                            <i class="icon-payment"></i>
+                            <span class="badge"></span>
+                        </a>
+                    </li> -->
+                    <li><a ui-sref="messages" title="4 New Messages" >
+                            <i class="icon-message"></i>
+                            <span class="badge" ng-show="new_message_count">{{ new_message_count }}</span> <!--{{ new_message_count }}-->
+                        </a>
+                    </li>
+                    <li><a title="{{ unread_notifications.length }} Alerts" ng-click="showNotificationBox($event)"><i class="icon-bell" ></i>
+                         <span class="badge" ng-show="unread_notifications.length">{{ unread_notifications.length }}</span>
+                    </a></li>
+                    <li><a href="javascript:void(0)" title="Logout" ng-click="signout()" style="padding-left: 20px;"><i class="icon-out"></i></a></li>
+                    <div class="topmenu-money-wrapper" ng-show="isShowPaymentBox" outside-click="hideDropDownBox()">
+                        <div class="icon-wrapper">
+                            <img class="img-icon" src="images/login_logo.png" />
+                        </div>
+                        <div class="text-item">
+                            <a href="" class="congrate">Congrats {{ profile_user.full_name }}</a>
+                        </div>
+                        <div class="text-item gray-color ">You have made</div>
+                        <div class="text-item money-blue">$2,014</div>
+                        <div class="text-item gray-color ">since start</div>
+                    </div>
+                    <div class="topmenu-notification-wrapper" ng-show="isShowNotificationBox" outside-click="hideDropDownBox()">
+                        <div class="text-item" ng-repeat="notification in notifications track by $index | limitTo: 5">
+                            <div class="item-inner-text blue-color"><a class="blue-color" href="#/public/{{ notification.sender.username }}">{{ notification.sender.full_name }}</a> &nbsp;</div>
+                            <div class="item-inner-text ">connected with you</div>
+                            <img class="right-img" src="images/sprites-images/check-green.png" />
+                        </div>
+                        <div class="text-item last-text">
+                            <a href="#/messages" class="blue-color">Show all Notifications</a>
+                        </div>
+                    </div>
+                </ul>
+                </div>
+                <div class="user-info">
+                    <figure>
+                        <a ui-sref="private-profile">
+                            <img width="40px" height="40px" src="{{ profile_user.picture }}"  alt="">
+                        </a>
+                    </figure>
+                    <div class="user-meta user-info-text">
+                        <h4><a ui-sref="private-profile">{{ profile_user.full_name }}</a></h4>
+                        <span>{{ profile_user.college }}</span>
+                    </div><!-- End .owner-meta -->
+                </div><!-- End .item-owner -->
+            </div>
+        </div><!-- End .header-right-wrapper -->
+    </div><!-- End .header-right -->
+    <!-- homepage header -->
+    <div class="container" ng-show="currentMenu=='home'" >
+        <h1 id="logo" class="pull-left">
+            <a ui-sref="home" title="Uknack - Site Description">
+                <img src="images/logo.png" alt="Uknack - Site Description">
+            </a>
+        </h1>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-container" aria-expanded="false" ng-click="toggleMenubar()" ng-hide="isMenubarOpen">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-menu-container">
+            <ul class="menu clearfix">
+            <li><a ui-sref="knack-offered">Knacks</a></li>
+                <li><a ui-sref="marketplace">Marketplace</a></li>
+                <li ng-hide="is_authenticated"><a href="javascript:void(0);" ng-click="openLoginModal()">Login</a></li>
+                <li ng-hide="is_authenticated"><a id="id-sign-up" href="javascript:void(0);" class="navbar-btn btn" ng-click="registerModal()">SIGN UP FREE</a></li>
+            </ul>
+        </div><!-- End .navbar-collapse -->
+    </div><!-- End .container -->
+    <!-- End homepage header -->
+</header><!-- End #header -->

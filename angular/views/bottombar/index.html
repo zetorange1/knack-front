@@ -1,0 +1,40 @@
+<div class="bottom-bar" ng-controller="bottombarCtrl">
+    <div class="row">
+        <div class="col-xs-3 white-thumb">
+            <a ng-click="goKnacks()">
+                <img ng-if="state!='knacks'" src="images/knacks-icon-blue.png" alt="Blue Icon"/>
+                <img ng-if="state=='knacks'" src="images/knacks-icon-pink.png" alt="Pink Icon"/>
+                <div class="blue-color">Knacks</div>
+            </a>
+        </div>
+        <!--
+        <div class="col-xs-2 white-thumb">
+            <a href="">
+                <img src="images/feed-icon-blue.png" />
+                <div class="blue-color">Feeds</div>
+            </a>
+        </div>
+        -->
+        <div class="col-xs-3 white-thumb">
+            <a ng-click="goMarketplace()">
+                <img ng-if="state!='marketplace'" src="images/marketplace-icon-blue.png" alt="Blue Icon"/>
+                <img ng-if="state=='marketplace'" src="images/marketplace-icon-pink.png" alt="Pink Icon"/>
+                <div class="blue-color">Marketplace</div>
+            </a>
+        </div>
+        <div class="col-xs-3 white-thumb">
+            <a ng-click="goNotification()">
+                <img ng-if="state!='notification'" src="images/notification-icon-blue.png" alt="Blue Icon"/>
+                <img ng-if="state=='notification'" src="images/notification-icon-pink.png" alt="Pink Icon"/>
+                <div class="blue-color">Notifications</div>
+            </a>
+        </div>
+        <div class="col-xs-3 white-thumb">
+            <a ng-click="goProfile()">
+                <img ng-if="state!='profile'" src="images/profile-icon-blue.png" alt="Blue Icon"/>
+                <img ng-if="state=='profile'" src="images/profile-icon-pink.png" alt="Pink Icon"/>
+                <div class="blue-color">Profile</div>
+            </a>
+        </div>
+    </div>
+</div>

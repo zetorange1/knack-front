@@ -1,0 +1,73 @@
+<footer class="main-footer" role="contentinfo" ng-controller="footerCtrl">
+    <div class="footer-top"
+         ng-class="{'larger light bg-image':$state.current.name=='home'}"
+         ng-style="$state.current.name=='home' && {'background-image':'url(images/footer-top-bg.jpg)'}">
+        <div class="footer-box">
+            <h4>Start Knacking Today</h4>
+            <p>And Discover What You're Good At!</p>
+            <form ng-submit="getStart()">
+                <div class="form-group">
+                    <input type="email" ng-model="new_email" class="form-control" placeholder="Please enter your .edu email address" required>
+                    <span class="icon-email"></span>
+                </div><!-- End .form-group -->
+                <input type="submit" class="btn btn-custom7 btn-lger" value="GET STARTED FREE">
+            </form>
+        </div><!-- End .footer-box -->
+    </div><!-- End .footer-top -->
+    <div class="footer-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-push-6">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="widget">
+                                <h4 class="widget-title">Company</h4>
+                                <ul class="links">
+                                    <li><a ui-sref="about">What's Uknack?</a></li>
+                                    <li><a ui-sref="mission">Mission &amp; Values</a></li>
+                                    <li><a ui-sref="terms">Terms Of Use</a></li>
+                                </ul>
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-3 -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="widget">
+                                <h4 class="widget-title">Discover</h4>
+                                <ul class="links">
+                                    <li><a ui-sref="how">How it works</a></li>
+                                    <li><a ui-sref="features">Features</a></li>
+                                    <li><a ui-sref="guidelines">Guidelines</a></li>
+                                </ul>
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-3 -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="widget">
+                                <h4 class="widget-title">Knacking</h4>
+                                <ul class="links">
+                                    <li><a ui-sref="gethired">Get Hired</a></li>
+                                    <li><a ui-sref="economy">Economy</a></li>
+                                    <li><a ui-sref="faqs">F.A.Qs</a></li>
+                                </ul>
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-3 -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="widget">
+                                <h4 class="widget-title">Say Hello</h4>
+                                <ul class="social-links">
+                                    <li><a href="#"><span class="social-icon icon-facebook"></span>Facebook</a></li>
+                                    <li><a href="#"><span class="social-icon icon-instagram"></span>Instagram</a></li>
+                                    <li><a href="#"><span class="social-icon icon-twitter"></span>Twitter</a></li>
+                                </ul>
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .col-md-6 -->
+                <div class="col-md-6 col-md-pull-6">
+                    <div class="widget widget-about">
+                        <img src="images/footer-logo.png" alt="Footer logo" class="footer-logo">
+                        <p class="copyright">&copy; Uknack 2016 - All rights reserved.</p>
+                    </div><!-- end .widget -->
+                </div><!-- End .col-md-6 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- end .footer-inner -->
+</footer>

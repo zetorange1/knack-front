@@ -1,0 +1,259 @@
+<div class="col-side" ng-controller="profileCtrl">
+    <ul class="nav nav-tabs no-margin" role="tablist">
+        <!-- <li role="presentation" class="tab-pane lowercase" ng-class="{active:active_r_tab=='connections'}">
+            <a href="" aria-controls="profile-connections" ng-click="activate_connections()">Favorite Knackers</a>
+        </li> -->
+        <li role="presentation" class="tab-pane lowercase active" ng-class="{active:active_r_tab=='reviews'}">
+            <a href="" aria-controls="profile-reviews active" ng-click="activate_reviews()">Reviews</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- <div role="tabpanel" id="profile-connections" ng-show="connections.length > 0" class="tab-pane" ng-class="{active:active_r_tab=='connections'}">
+            <div class="connections-box">
+                <div class="search-box">
+                    <input type="text" placeholder="Search classmate name..." id="search-text-input" />
+                    <a id="button-holder">
+                        <img src="images/search_btn.png" />
+                    </a>
+                </div>
+                <div class="row connections-container clearfix">
+                    <div class="col-xs-12 item-wrapper clearfix" ng-repeat="connection in connections" ng-mouseover="overConnectionInx=$index" ng-click="overConnectionInx=$index" ng-mouseleave="overConnectionInx=-1">
+                        <div class="item-owner">
+                            <figure>
+                                <a href="/#/public/{{connection.username}}"><img ng-src="{{connection.picture || 'images/users/no_avatar.png'}}" alt="{{connection.full_name}}"></a>
+                            </figure>
+                            <div class="owner-meta">
+                                <a class="owner-name" href="/#/public/{{ connection.username }}">{{connection.full_name}}</a>
+                                <div class="meta-item">{{connection.college}}</div>
+                            </div>
+                            <i ng-show="! is_public" class="fa fa-check-circle-o" ng-click="_user.disconnect(connection)"></i>
+                        </div>
+                        <div class="dropdown" ng-class="{'open':overConnectionInx==$index}">
+                            <div class="dropdown-menu" aria-labelledby="edit-social" outside_click="overConnectionInx==$index?overConnectionInx=-1">
+                                <article class="item item-profile">
+                                    <div class="item-header profile-item-header">
+                                        <figure>
+                                            <a href="/#/public/{{connection.username}}"><img src="{{connection.picture || 'images/users/no_avatar.png'}}" alt="{{connection.full_name}}"></a>
+                                            <span class="owner-status" ng-class="{on: connection.is_online}"></span>
+                                        </figure>
+                                        <a ng-href="#/public/{{ connection.username }}" class="profile-name">{{connection.full_name}}</a>
+                                        <div class="profile-item gray-color">{{connection.college}}</div>
+                                        <div class="profile-item gray-color">
+                                            {{connection.category_name}} &middot; {{connection.age}}y/o
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="form-group">
+                                            <p class="item-price">${{connection.grand_total}}</p>
+                                            <p class="profile-item profile-info-item gray-color">{{connection.created_at}}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="rating">
+                                                <div class="ratings-container">
+                                                    <span class="ratings-wrapper">
+                                                        <span class="ratings" style="width:80%;"></span>
+                                                    </span>
+                                                    <span class="ratings-count">(4)</span>
+                                                </div>
+                                            </div>
+                                            <p class="profile-item profile-info-item gray-color">Last seen: {{connection.last_seen}}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <ul class="connection-list">
+                                                <li ng-repeat="c in connection.connections | limitTo: 4">
+                                                    <figure><a href="/#/public/{{c.username}}"><img ng-src="{{c.picture || 'images/users/no_avatar.png'}}"></a></figure>
+                                                </li>
+                                                <li ng-show="connection.connections.length - 4 > 0"><span class="more-connections">{{connection.connections.length}}</span></li>
+                                                <li ng-show="connection.connections.length == 0"><span class="more-connections" style="font-size: 12px; font-weight: 400;">0 connections</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="ng-hide">
+                    <a href="" title="Show all connections">Show all favorite knackers (5)</a>
+                </footer>
+            </div>
+        </div> --><!-- End .tab-pane -->
+        <!-- <div role="tabpanel" class="tab-pane" ng-show="connections.length == 0" ng-class="{active:active_r_tab=='connections'}">
+            <div class="connections-box welcome-profile">
+                <div class="search-box">
+                    <input type="text" placeholder="Search classmate name..." id="search-text-input" />
+                    <a id="button-holder">
+                        <img src="images/search_btn.png" />
+                    </a>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="nono-msg">
+                    NO FAVORITE KNACKERS YET
+                </div>
+                <p class="tip-msg">Connecting is simple</p>
+
+                <div class="notice-box">
+                    <div>
+                        <div class="numberCircle">1</div><div class="notice-msg">Browse Knacks or Items</div><div style="clear: both;"></div>
+                    </div>
+                    <div>
+                        <div class="numberCircle">2</div>
+                        <div class="notice-msg">Flip someone's profile</div>
+                        <img class="right contact-state-icon" src="images/sprites-images/refresh-green-icon.png">
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div>
+                        <div class="numberCircle">3</div>
+                        <div class="notice-msg">Check the connection</div>
+                        <img class="right contact-state-icon" src="images/sprites-images/check-green.png">
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div class="alter-msg">
+                    <p ng-show="! is_public">Your Favorite Knackers<br>will show here</p>
+                    <p ng-show="is_public">{{ user_post_data.first_name }}'s Favorite Knackers<br>will show here</p>
+                    <p></p>
+                </div>
+            </div>
+        </div> --><!-- End .tab-pane -->
+        <div role="tabpanel" id="profile-reviews" ng-show="reviews.length > 0" class="tab-pane active" ng-class="{active:active_r_tab=='reviews'}">
+            <div class="reviews-box">
+                <div class="review-overall">
+                    <p>Overall Rating</p>
+                    <div class="ratings-container">
+                        <span class="ratings-count"><strong>{{ overall_rating }}</strong> / 5.0</span>
+                        <div class="ratings-wrapper">
+                            <div class="ratings" ng-style="{'width':(overall_rating * 100 / 5) + '%'}"></div><!-- End .ratings -->
+                        </div><!-- End .ratings-wrapper -->
+                    </div><!-- End .ratings-container -->
+                </div><!-- End .review-overall -->
+
+                <div class="review" ng-repeat="review in reviews | limitTo:limit">
+                    <div class="review-content">
+                        {{ review.feedback }}
+                    </div><!-- End .review-content -->
+                    <div class="review-wrapper clearfix">
+                        <div class="item-owner">
+                            <figure>
+                                <img src="{{ review.poster_picture }}" alt="Derek Wilson">
+                            </figure>
+                            <div class="owner-meta">
+                                <h4><a href="#">{{ review.poster_name }}</a></h4>
+                                <span>{{ review.poster_college }}</span>
+                            </div><!-- End .owner-meta -->
+                        </div><!-- End .item-owner -->
+                        <div class="rating-single">
+                            <i class="icon-rating-single"></i>
+                            <span class="ratings-count">{{ review.rating }}</span>
+                        </div><!-- End .rating-single -->
+                    </div><!-- End .review-wrapper -->
+                </div><!-- .End .review -->
+                <h3><a ng-show="limit < reviews.length" ng-click="showAll()" class="pull-right">Show all({{ reviews.length - limit }})</a></h3>
+            </div><!-- End .reviews-box -->
+        </div><!-- End .tab-pane -->
+        <div role="tabpanel" class="tab-pane active" ng-show="reviews.length == 0" ng-class="{active:active_r_tab=='reviews'}">
+            <div class="connections-box welcome-profile">
+                <div class="search-box">
+                    <input type="text" placeholder="Search classmate name..." id="search-text-input" />
+                    <a id="button-holder">
+                        <img src="images/search_btn.png" />
+                    </a>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="nono-msg">
+                    NO REVIEWS YET
+                </div>
+                <p class="tip-msg">Getting a review is simple</p>
+
+                <div class="notice-box">
+                    <div>
+                        <div class="numberCircle">1</div><div class="notice-msg">Post a Knacks or an Item</div><div style="clear: both;"></div>
+                    </div>
+                    <div>
+                        <div class="numberCircle">2</div>
+                        <div class="notice-msg">Do good business</div>
+                        <!--
+                        <img class="right contact-state-icon" src="images/sprites-images/refresh-green-icon.png">
+                        -->
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div>
+                        <div class="numberCircle">3</div>
+                        <div class="notice-msg">Get a review</div>
+                        <!--
+                        <img class="right contact-state-icon" src="images/sprites-images/check-green.png">
+                        -->
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div class="alter-msg">
+                    <p ng-show="! is_public">Your reviews<br>will appear here</p>
+                    <p ng-show="is_public">{{ user_post_data.first_name }}'s reviews<br>will appear here</p>
+                    <p></p>
+                </div>
+            </div>
+            <!--
+            <div class="reviews-box">
+                <h3>Reviews <a href="#" class="pull-right">Show all(5)</a></h3>
+                <div class="review-overall">
+                    <p>Overal Rating</p>
+                    <div class="ratings-container">
+                        <span class="ratings-count"><strong>4.2</strong> / 5.0</span>
+                        <div class="ratings-wrapper">
+                            <div class="ratings" style="width:80%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review">
+                    <div class="review-content">
+                        Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'.
+                    </div>
+                    <div class="review-wrapper clearfix">
+                        <div class="item-owner">
+                            <figure>
+                                <img src="images/users/user1.jpg" alt="Derek Wilson">
+                            </figure>
+                            <div class="owner-meta">
+                                <h4><a href="#">Derek Wilson</a></h4>
+                                <span>Fisher college</span>
+                            </div>
+                        </div>
+                        <div class="rating-single">
+                            <i class="icon-rating-single"></i>
+                            <span class="ratings-count">4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review">
+                    <div class="review-content">
+                        Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'.
+                    </div>
+                    <div class="review-wrapper clearfix">
+                        <div class="item-owner">
+                            <figure>
+                                <img src="images/users/user6.jpg" alt="James Poter">
+                            </figure>
+                            <div class="owner-meta">
+                                <h4><a href="#">James Poter</a></h4>
+                                <span>Harvard University</span>
+                            </div>
+                        </div>
+                        <div class="rating-single">
+                            <i class="icon-rating-single"></i>
+                            <span class="ratings-count">5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <footer>
+                    <a href="#" title="Write a Review" data-toggle="modal" data-target="#review-modal">WRITE A REVIEW</a>
+                </footer>
+            </div>
+            -->
+        </div><!-- End .tab-pane -->
+    </div>
+</div><!-- End .col-side -->

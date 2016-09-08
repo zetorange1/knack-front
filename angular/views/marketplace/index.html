@@ -1,0 +1,120 @@
+<div id="content" role="main" class="marketplace" ng-class="{single: single_item }">
+    <div ng-hide="single_item">
+        <div class="top-filter-container">
+            <div class="container">
+                <div class="filter-row filtering-row">
+                    <div class="filter-cell search-cell">
+                        <form class="search-form" role="search" ng-submit="fullSearch()">
+                            <input type="input" class="form-control" ng-model="filter.search_text" placeholder="Search by name, classmate name, knack etc ...">
+                            <input type="submit" value="Search" class="search-btn" title="Search Now">
+                            <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+                        </form>
+                        <form class="search-form-mobile" role="search" ng-submit="fullSearch()">
+                            <input type="input" class="form-control" ng-model="filter.search_text" placeholder="Search....">
+                            <input type="submit" value="Search" class="search-btn" title="Search Now" >
+                            <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+                        </form>
+                    </div><!-- End .filter-cell -->
+                    <div class="filter-cell order-cell feed-filter">
+                        <div class="sortby-text gray-color" ng-init="isShowSortContent = false" ng-click="isShowSortContent = !isShowSortContent">Sort by:<span class="desktop-show"> {{selectedItem}}</span></div>
+                        <div class="sortby-content" ng-show="isShowSortContent">
+                            <div class="sort-item gray-color" ng-repeat="sortItem in sortList track by $index" ng-click="selectItem($index)" >
+                                {{sortItem}}
+                            </div>
+                        </div>
+                    </div><!-- End .filter-cell -->
+                    <!-- <div class="filter-cell layout-cell filter-refresh">
+                        <a href="javascript:void(0);" class="" title="Flip" ng-click="flipAll()" ng-show="current_type != 'knack-ideas'">
+                            <img src="images/login_logo.png" class="indent-button">
+                        </a>
+                    </div><!-- End .filter-cell -->
+                </div><!-- End .top-filter-row -->
+            </div><!-- end .container -->
+        </div><!-- End .top-filter-container -->
+
+        <div class="container">
+            <p class="content-info"><strong>{{ items.length }}</strong> marketplace items found</p>
+
+            <div class="row" style="margin-left: -13px;">
+                <div id="item-container" class="flip-wrapper">
+                    <div class="item-wrapper flip-container col-md-4 col-lg-3 col-sm-6 col-xs-12" ng-repeat="item in items">
+                        <div ng-include="'views/marketplace/single_in_list.html'"></div>
+                    </div>
+                </div><!-- End #item-container  -->
+            </div><!-- End .row  -->
+
+            <div class="loadmore-container text-center">
+                <a href="javascript:void(0);" class="btn-loadmore btn btn-custom3 btn-border" ng-show="more" ng-click="showMore()">Show more Items</a>
+                <a href="javascript:void(0);" class="btn-loadmore btn btn-custom3 btn-border" ng-if="!more && items.length">That's all the items we could find.</a>
+            </div><!-- End .text-center -->
+        </div><!-- End .container -->
+    </div>
+    <div ng-show="single_item" ng-include="'views/marketplace/single.html'"></div>
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+            <ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Twitter">Instagram</a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .container -->
+    </footer>
+
+</div><!-- End #content -->
+<aside class="sidebar" role="complementary" ng-include="'views/left/main_left.html'" onload="mainLeftLoaded()"></aside>
+
+<aside class="menubar" role="complementary" >
+    <div class="sidebar-wrapper" perfect-scrollbar>
+        <div class="menubar-body">
+            <div class="item" ng-click="clickKnack()">
+                <img src="images/knacks-icon.png">
+                <div class="font-4 bold">Knacks</div>
+            </div>
+            <div class="item no-border-bottom" ng-click="clickMarketPlace()">
+                <img src="images/marketplace-icon.png">
+                <div class="font-4 bold">Marketplace</div>
+            </div>
+            <div class="outer">
+                <div class="mobile-show header-btn-wrapper">
+                    <a href="javascript:void(0);" class="btn btn-custom7 btn-lger wow shake" ng-click="getStart()">Become a Member</a>
+
+                    <a href="javascript:void(0);" class="btn btn-custom btn-custom12 btn-lger wow shake" ng-click="openLoginModal()">Login to Uknack</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <!--<ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>-->
+                <p class="copyright">&copy; 2016 uKnack. All rights reserved</p>
+                <p class="say-hello">
+                    <span><a href="#">About</a> | </span>
+                    <span><a href="#">Feedback</a> | </span>
+                    <span><a href="#">Terms</a> | </span>
+                    <span><a href="#">Privacy</a></span>
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                    <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                    <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                </div><!-- End .social-icons -->
+            </div>
+        </footer>
+    </div><!-- End .sidebar-wrapper -->
+
+</aside>
+
+<!--
+<div class="sidebarbg-mobile"></div><!-- end .sidebarbg-mobile -->

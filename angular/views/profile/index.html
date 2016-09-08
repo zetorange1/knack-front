@@ -1,0 +1,247 @@
+<ng-include src="'views/left/profile_left.html'"></ng-include>
+<div id="content" role="main" class="profile private-profile" ng-controller="profileCtrl" ng-show="user">
+    <div class="container special-container" ng-show="user_not_found">
+        <br><br>
+        <h1>User Not Found</h1>
+    </div>
+    <div class="container special-container" ng-show="!(user | isEmpty)"">
+        <div class="row special-row">
+            <div class="col-content" ng-hide="is_public || (knacks.length > 0 || items.length > 0)">
+                <!-- Tab panes -->
+                <div class="tab-content tab-content-cus">
+                    <div role="tabpanel" class="tab-pane active" id="welcome-section">
+                        <p class="welcome-title">Welcome to</p>
+                        <img src="images/welcome-logo.png" />
+                        <p class="welcome-message">
+                            Get started by filling out <br/>your profile in the left column
+                        </p>
+                        <div class="welcome-content">
+                            <div class="knacks">
+                                <p class="title">KNACKS</p>
+                                <p class="content">Services you offer are called Knacks</p>
+                                <p class="message">Start Doing Business</p>
+                                <a ng-click="openPostKnackModal()" class="btn btn-custom">
+                                    POST YOUR FIRST KNACK
+                                    <!--<span class="glyphicon glyphicon-indent-left visible-xs"></span>-->
+                                </a>
+                                <p class="link" ng-click="gotoKnackIdea()">Click here for some ideas</p>
+                            </div>
+                            <div class="store">
+                                <p class="title">STORE</p>
+                                <p class="content">Items you sell are shown in your store</p>
+                                <p class="message">Open Your Store</p>
+                                <a ng-click="openPostItemModal()" class="btn btn-custom">
+                                    SELL YOUR FIRST ITEM
+                                    <!--<span class="glyphicon glyphicon-indent-left visible-xs"></span>-->
+                                </a>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                </div><!-- End .tab-content -->
+            </div><!-- End .col-content -->
+            <div class="col-content" ng-show="is_public || (knacks.length > 0 || items.length > 0)">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{active:active_tab=='knacks'}">
+                        <a href="javascript:void(0)" aria-controls="profile-knacks" ng-click="activate_knacks()">
+                            Knacks ({{ knacks.length }}) <span ng-show="! is_public" class="plus-button" ng-click="$event.stopPropagation();openNewKnackModal()"><img ng-src="images/plus-icon.png"></span></a>
+
+                    </li>
+                    <li role="presentation" ng-class="{active:active_tab=='items'}">
+                        <a href="javascript:void(0)" aria-controls="profile-items" ng-click="activate_items()">
+                            STORE ({{ items.length }}) <span ng-show="! is_public" class="plus-button" ng-click="$event.stopPropagation();openNewItemModal()"><img ng-src="images/plus-icon.png"></span></a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane" id="profile-knacks" ng-class="{active:active_tab=='knacks'}">
+                        <article class="no-item clearfix" ng-show="is_public && knacks.length==0">
+                            <p></p>
+                            <img src="images/welcome-logo.png" />
+                            <p class="message">{{ user_post_data.first_name }} hasn't created any knacks yet.</p>
+                        </article>
+                        <article class="item clearfix" ng-repeat="item in knacks">
+                            <div class="item-header">
+                                <ul photo-slider data-gallery="false">
+                                    <li ng-repeat="photo in item.photos" data-thumb="{{photo}}" class="knack-slide-item">
+                                        <a href="" title="{{item.name}}" class="">
+                                            <img alt="{{ item.name }}" ng-src="{{ photo }}" class="profile-page-item-img" />
+                                        </a>
+                                        <span class="item-price">${{item.price}}</span>
+                                    </li>
+                                </ul>
+                                <span class="item-price">${{ item.price }}</span>
+                                <div class="item-fav">
+                                    <span class="fav-count">0</span>
+                                    <a href="#" class="icon-fav" title="Add to Favourite">Add to Favourite"></a>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h2 class="item-title">
+                                    <a href="" ng-show="item.type == 'O'"  ui-sref="knack-offered-single({id:item.id})"><p>{{ item.name }}</p></a>
+                                    <a href="" ng-show="item.type == 'W'"  ui-sref="knack-wanted-single({id:item.id})"><p>{{ item.name }}</p></a>
+                                </h2>
+                                <div read-more read-more-height="93" read-more-text="item.description"></div>
+                                <!--
+                                    <p ng-class="">{{ item.description }}</p>
+                                -->
+                                <div class="item-meta">
+                                    <div class="ratings-container">
+                                        <div class="ratings-wrapper">
+                                            <div class="ratings" ng-style="{'width':(item.rating * 100 / 5) + '%'}"></div><!-- End .ratings -->
+                                        </div>
+                                        <span class="ratings-count">({{ item.rating_count }})</span>
+                                    </div>
+                                    <span class="dot-separator"></span>
+                                    <div class="item-category">
+                                        <a href="#" title="{{ item.category_name }}">{{ item.category_name }}</a>
+                                    </div>
+                                </div>
+                                <div class="line-separator"></div>
+                                <div class="item-action-wrapper clearfix" ng-show="is_public">
+                                    <div class="pull-left">
+                                        <div class="meta-item-footer">
+                                            <!-- <a class="status-item gray-color ng-binding">
+                                                <i class="fa fa-star-o"></i>
+                                                659
+                                            </a>
+                                            <a class="status-item gray-color ng-binding" ng-click="toggleSubFeed($index)">
+                                                <i class="fa fa-comment-o"></i>
+                                                3
+                                            </a>
+
+                                            <a class="status-item gray-color ng-binding" ng-click="toggleSocialBox($index, $event)">
+                                                <i class="fa fa-share-alt" ></i>
+                                                22
+                                            </a> 
+                                            <div class="dropdown profile-social-dropdown" ng-class="{ open: openIndex==$index }" outside-click="closeSocialBox()">
+                                                <ul class="dropdown-menu" >
+                                                    <li><a facebook-feed-share data-url="{{knack_url}}{{item.id}}" data-caption="{{item.name}}" data-picture="{{item.photos[0]}}" data-description="{{item.description}}" ><span class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</span> Promote on Facebook</a></li>
+                                                    <li><a ng-click="shareItemTweet(item.id, item.name)" ><span class="social-icon icon-twitter-color" title="Like us on Twitter">Twitter</span> Promote on Twitter</a></li>
+                                                    <li><a ng-click="shareItemPinterest(item.id, item.name, item.photos[0])" ><span class="social-icon icon-pinterest-color" title="Like us on Pinterest">Pinterest</span> Promote on Pinterest</a></li>
+                                                </ul>
+                                            </div><!-- End .dropdown -->
+                                        </div>
+
+                                    </div><!-- End .item-owner -->
+                                    <div class="pull-right">
+                                        <a href="" class="btn btn-custom4 btn-border" ng-click="openWriteAReviewModal(item.buy_item, 'knack', item.id, item.reviews)">Write a review</a>
+                                        <a href="" class="btn btn-custom dropdown-toggle" ng-click="openHireModal(item)"><strong>Hire Me</strong></a>
+
+                                    </div><!-- End .item-action -->
+                                </div><!-- End .item-action-wrapper -->
+                                <div class="item-action-wrapper clearfix" ng-show="! is_public">
+                                    <div class="pull-left">
+                                        <a href="" class="btn btn-custom4 btn-border" ng_click="edit_knack(item)">Edit</a>
+                                    </div><!-- End .item-owner -->
+                                    <div class="pull-right">
+                                        <span ng-hide="item.ready_to_repost">Next repost in: {{ item.repost_available_in | secondsToDateTime | date:'HH:mm:ss' }}</span>
+                                        <a href="" class="btn btn-custom4 btn-border" ng-disabled="! item.ready_to_repost" ng-click="repost_knack(item)">Repost</a>
+                                        <a href="" class="btn btn-custom3 user-promote-btn dropdown-toggle" ng-click="edit_profile(item.id, $event)"><strong>Promote</strong></a>
+                                        <div class="dropdown promote-dropdown" ng-class="{ open:edit_field==item.id }">
+                                            <ul class="dropdown-menu" outside_click="close_edit()">
+
+                                                <li><a facebook-feed-share data-url="{{knack_url}}{{item.id}}" data-caption="{{item.name}}" data-picture="{{item.photos[0]}}" data-description="{{item.description}}" ><span class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</span> Promote on Facebook</a></li>
+                                                <li><a ng-click="shareItemTweet(item.id, item.name)" ><span class="social-icon icon-twitter-color" title="Like us on Twitter">Twitter</span> Promote on Twitter</a></li>
+                                                <li><a ng-click="shareItemPinterest(item.id, item.name, item.photos[0])" ><span class="social-icon icon-pinterest-color" title="Like us on Pinterest">Pinterest</span> Promote on Pinterest</a></li>
+                                            </ul>
+                                        </div><!-- End .dropdown -->
+                                    </div><!-- End .item-action -->
+                                </div><!-- End .item-action-wrapper -->
+                            </div><!-- End .item-content -->
+                        </article>
+
+                    </div><!-- End .tab-pane -->
+                    <div role="tabpanel" class="tab-pane" id="profile-items" ng-class="{active: active_tab=='items'}">
+                        <article class="no-item clearfix" ng-show="is_public && items.length==0">
+                            <p></p>
+                            <img src="images/welcome-logo.png" />
+                            <p class="message">{{ user_post_data.first_name }} hasn't posted any item yet.</p>
+                        </article>
+                        <article class="item clearfix" ng-repeat="item in items">
+                            <div class="item-header">
+                                <!-- ng-if makes sure that the slider is loaded only when the tab is visible -->
+                                <div ng-if="active_tab=='items'">
+                                    <ul photo-slider data-gallery="false">
+                                        <li ng-repeat="photo in item.photos" data-thumb="{{photo}}" class="knack-slide-item">
+                                            <a href="" title="{{item.name}}" class="">
+                                                <img alt="{{ item.name }}" ng-src="{{ photo }}" class="profile-page-item-img" />
+                                            </a>
+                                            <span class="item-price">${{item.price}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="item-price">${{ item.price }}</span>
+                                <div class="item-fav">
+                                    <a href="" class="icon-fav" title="Add to Favourite">Add to Favourite"></a>
+                                </div><!-- End .item-fav -->
+                            </div><!-- End .item-header -->
+                            <div class="item-content">
+                                <h2 class="item-title">
+                                    <a href=""><p>{{ item.name }}</p></a>
+                                </h2>
+                                <div read-more read-more-height="93" read-more-text="item.description"></div>
+                                <!--
+                                <p>{{ item.description }}</p>
+                                -->
+                                <div class="item-meta">
+                                    <div class="ratings-container">
+                                        <div class="ratings-wrapper">
+                                            <div class="ratings" ng-style="{'width':(item.rating * 100 / 5) + '%'}"></div><!-- End .ratings -->
+                                        </div><!-- End .ratings-wrapper -->
+                                        <span class="ratings-count">({{ item.rating_count }})</span>
+                                    </div><!-- End .ratings-container -->
+                                    <span class="dot-separator"></span>
+                                    <div class="item-category">
+                                        <a href="" title="{{ item.category_name }}">{{ item.category_name }}</a>
+                                    </div><!-- End .item-tags -->
+                                </div><!-- End .item-meta -->
+                                <div class="line-separator" ng-show="!is_public"></div>
+                                <div class="item-action-wrapper clearfix" ng-show="!is_public">
+                                    <div class="pull-left">
+                                        <a href="" class="btn btn-custom4 btn-border" ng_click="edit_item(item)">Edit</a>
+                                    </div><!-- End .item-owner -->
+                                    <div class="pull-right">
+                                        <a href="" class="btn btn-custom4 btn-border" ng_click="repost_item(item)">Repost</a>
+                                        <a href="" class="btn btn-custom3 user-promote-btn dropdown-toggle" ng-click="edit_profile(item.id, $event)"><strong>Promote</strong></a>
+                                        <div class="dropdown promote-dropdown" ng-class="{ open:edit_field==item.id }">
+                                            <ul class="dropdown-menu" outside_click="close_edit()">
+                                                <li><a facebook-feed-share data-url="{{$scope.knack_url}}{{item.id}}" data-caption="{{item.name}}" data-picture="{{item.photos[0]}}" data-description="{{item.description}}" ><span class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</span> Promote on Facebook</a></li>
+                                                <li><a ng-click="shareItemTweet(item.id, item.name)" ><span class="social-icon icon-twitter-color" title="Like us on Twitter">Twitter</span> Promote on Twitter</a></li>
+                                                <li><a ng-click="shareItemPinterest(item.id, item.name, item.photos[0])" ><span class="social-icon icon-pinterest-color" title="Like us on Pinterest">Pinterest</span> Promote on Pinterest</a></li>
+                                            </ul>
+                                        </div><!-- End .dropdown -->
+                                    </div><!-- End .item-action -->
+                                </div>
+                            </div><!-- End .item-content -->
+                        </article>
+
+                    </div><!-- End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div><!-- End .col-content -->
+            <ng-include src="'views/profile/connections_reviews.html'"></ng-include>
+        </div><!-- End .special-row -->
+    </div><!-- End .container -->
+    <footer class="footer">
+        <div class="container">
+            <!--<ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>-->
+            <p class="say-hello">SAY HELLO</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+            </div><!-- End .social-icons -->
+            <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+        </div><!-- End .container -->
+    </footer>
+</div><!-- End #content -->
+<!--
+<div class="sidebarbg-mobile"></div><!-- end .sidebarbg-mobile -->

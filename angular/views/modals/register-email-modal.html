@@ -1,0 +1,26 @@
+<!--register-email-modal-->
+<form name="registerForm" class="register-modal-form" novalidate ng-submit="register(registerForm)">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+        <img class="modal-header-img" src="images/login_logo.png"/>
+        <h4 class="modal-title" id="modallabel4">Get Started Absolutely <span class="ext-text">Free</span></h4>
+        <h5 class="modal-subtitle">NO CREDIT CARD REQUIRED</h5>
+    </div><!-- End .modal-header -->
+    <div class="modal-body top-10">
+        <div class="form-group">
+            <div class="well" ng-show="message">
+                {{ message }}
+            </div>
+        </div>
+        <div class="form-group facebook-btn-wrapper input-info-wrapper">
+            <input name="email" type="email" class="form-control input-lg register-input im-icon" placeholder="Enter your .edu email address" ng-model="user.email" required>
+            <button class="info-btn" ng-click="openInfoModal()"></button>
+        </div><!-- End .from-group -->
+
+    </div><!-- End .modal-body -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-lg btn-custom btn-block"><strong>SIGNUP FREE</strong></button>
+        <h5 class="desc">By clicking "SignUp Free", I agree to Uknack's <a class="modal-link" ui-sref="terms">Terms of Service</a></h5>
+        <h5>Already a member? <a class="modal-link" ng-click="openLoginModal()">LOGIN</a></h5>
+    </div><!-- End .modal-footer -->
+</form>

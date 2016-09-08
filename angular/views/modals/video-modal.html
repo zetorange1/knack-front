@@ -1,0 +1,26 @@
+<div class="modal-body video-modal-body">
+    <div class="video-container">
+        <!--
+        <iframe src="http://www.youtube.com/embed/W7qWa52k-nE" width="605" height="350" frameborder="0" allowfullscreen></iframe>
+        -->
+
+        <videogular vg-theme="config.theme.url">
+			<vg-media vg-src="config.sources"
+					  vg-tracks="config.tracks"
+					  vg-native-controls="false">
+			</vg-media>
+			<vg-controls vg-autohide="controller.config.plugins.controls.autoHide" class="status-control-wrapper" vg-autohide-time="controller.config.plugins.controls.autoHideTime">
+	            <vg-play-pause-button class="play-pause-btn-wrapper"></vg-play-pause-button>
+	            <vg-scrub-bar class="scrub-bar-wrapper">
+	                <vg-scrub-bar-current-time class="vg-scrub-bar-current-time"></vg-scrub-bar-current-time>
+	            </vg-scrub-bar>
+	            <vg-fullscreen-button class="fullscreen-btn-wrapper"></vg-fullscreen-button>
+	            <vg-volume class="volume-btn-wrapper">
+	                <vg-mute-button></vg-mute-button>
+	                <vg-volume-bar></vg-volume-bar>
+	            </vg-volume>
+	            
+        	</vg-controls>
+		</videogular>
+    </div>
+</div>

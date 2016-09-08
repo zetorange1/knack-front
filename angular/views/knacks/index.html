@@ -1,0 +1,73 @@
+<div id="content" role="main" class="knack-list" ng-class="{single: single_knack }">
+    <div ng-if="!single_knack">
+        <div class="top-filter-container">
+            <div class="container">
+                <div class="filter-row filtering-row">
+                    <div class="filter-cell search-cell">
+                        <form class="search-form" role="search" ng-submit="fullSearch()">
+                            <input type="input" class="form-control" ng-model="filter.search_text" placeholder="Search by name, classmate name, knack etc ...">
+                            <input type="submit" value="Search" class="search-btn" title="Search Now">
+                            <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+                        </form>
+                        <form class="search-form-mobile" role="search" ng-submit="fullSearch()">
+                            <input type="input" class="form-control" ng-model="filter.search_text" placeholder="Search....">
+                            <input type="submit" value="Search" class="search-btn" title="Search Now">
+                            <a href="#" class="search-close-btn" title="Close Search"><span aria-hidden="true">&times;</span></a>
+                        </form>
+                    </div><!-- End .filter-cell -->
+                    <div class="filter-cell order-cell feed-filter" outside-click="hideDropDownBox()">
+                        <div class="sortby-text gray-color" ng-click="toggleDropDownBox()">Sort by:<span class="desktop-show"> {{selectedItem}}</span></div>
+                        <div class="sortby-content" ng-show="isShowSortContent">
+                            <div class="sort-item gray-color" ng-repeat="sortItem in sortList track by $index" ng-click="selectItem($index)" >
+                                {{sortItem}}
+                            </div>
+                        </div>
+                    </div><!-- End .filter-cell -->
+                    <!-- <div class="filter-cell layout-cell filter-refresh">
+                        <a href="javascript:void(0);" class="" title="Flip" ng-click="flipAll()" ng-show="current_type != 'knack-ideas'">
+                            <img src="images/login_logo.png" class="indent-button">
+                        </a>
+                    </div><!-- End .filter-cell -->
+                </div><!-- End .top-filter-row -->
+            </div><!-- end .container -->
+        </div><!-- End .top-filter-container -->
+
+        <div class="container white-background">
+            <p class="content-info"><strong>{{ total_count }}</strong> knacks found</p>
+
+             <div class="row" style="margin-left: -13px;">
+                <div id="item-container" class="flip-wrapper">
+                    <div class="item-wrapper flip-container" ng-repeat="item in knacks track by $index">
+                        <div ng-include="'views/knacks/single_in_list.html'"></div>
+                    </div>  
+                 </div><!-- End #item-container  -->
+             </div><!-- End .row  -->
+             
+             
+            <div class="loadmore-container text-center">
+                <a href="javascript:void(0);" class="btn-loadmore btn btn-custom3 btn-border" ng-show="more" ng-click="showMore()">Show more knacks</a>
+                <a href="javascript:void(0);" class="btn-loadmore btn btn-custom3 btn-border" ng-if="!more && knacks.length">That's all the knacks we could find.</a>
+            </div><!-- End .text-center -->
+        </div><!-- End .container -->
+    </div>
+    <div ng-if="single_knack" ng-include="'views/knacks/single.html'"></div>
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+            <ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Twitter">Instagram</a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .container -->
+    </footer>
+</div><!-- End #content -->
+<aside class="sidebar" role="complementary" ng-include="'views/left/main_left.html'" onload="mainLeftLoaded()"></aside>
+<!--
+<div class="sidebarbg-mobile"></div><!-- end .sidebarbg-mobile -->

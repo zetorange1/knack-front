@@ -1,0 +1,208 @@
+<div class="page-header bg-image larger" style="background-image: url(images/headers/header1.jpg)">
+    <div class="overlay"></div><!-- End overlay -->
+    <div class="side-overlay" ng-show="isMenubarOpen" ng-click="hideMenubar()">
+        <img src="images/close-icon.png" />
+    </div><!-- End overlay -->
+    <div class="header-box">
+        <h1>Easily Start Your Business in College</h1>
+        <p>And keep 100% of what you make!</p>
+        <a ui-sref="knack-offered" class="btn btn-custom7 btn-xl wow shake desktop-show">START KNACKING!</a>
+
+        <div class="mobile-show header-btn-wrapper">
+            <a href="javascript:void(0);" class="btn btn-custom7 btn-lger wow shake" ng-click="getStart()">Become a Member</a>
+
+            <a href="javascript:void(0);" class="btn btn-custom btn-custom11 btn-lger wow shake" ng-click="openLoginModal()">Login to Uknack</a>
+        </div>
+    </div><!-- End .header-box -->
+</div><!-- End .page-top -->
+<div class="logo-section">
+    <div class="container">
+        <div class="row logo-container">
+            <a href="#" title="Harvard University">
+                <img src="images/logos/harvard.png" alt="Harvard" class="margin-1">
+            </a>
+            <a href="#" title="Notheastern University">
+                <img src="images/logos/north.png" alt="Notheastern" class="margin-2">
+            </a>
+            <a href="#" title="Suffolk University">
+                <img src="images/logos/suffolk.png" alt="Suffolk" class="margin-3">
+            </a>
+            <a href="#" title="Mit">
+                <img src="images/logos/mit.png" alt="Mit" class="margin-4">
+            </a>
+            <a href="#" title="Emerson College">
+                <img src="images/logos/emerson.png" alt="Emerson" class="margin-5">
+            </a>
+            <a href="#" title="Boston University">
+                <img src="images/logos/boston.png" alt="Boston" class="margin-6">
+            </a>
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</div><!-- End .logo-section -->
+
+<div class="steps-section">
+    <div class="center-container">
+        <p class="lead full text-center">Uknack helps students turn their talent into their business and lets them keep 100% of the money they make!</p>
+
+        <div class="steps-container">
+            <h3 class="text-center">IN 3 EASY STEPS</h3>
+            <div class="step-row">
+                <div class="step-content">
+                    <h2>1. Do what you're good at</h2>
+                    <blockquote>
+                        <p>From hairdressing to making music, we make it easy to do what you love</p>
+                        <!--<cite>Peter Shaw<span>Boston University</span></cite>-->
+                    </blockquote>
+                </div><!-- End .step-content -->
+                <figure class="step-image">
+                    <img src="images/homepage/item1.png" class="wow zoomIn" alt="Step image">
+                </figure>
+            </div><!-- End .step-row -->
+            <div class="step-row">
+                <figure class="step-image">
+                    <img src="images/homepage/item2.png" class="wow zoomIn" alt="Step image">
+                </figure>
+                <div class="step-content">
+                    <h2>2. Get hired</h2>
+                    <blockquote>
+                        <p>When people like what you do, they'll hire you to help them get things done</p>
+                    </blockquote>
+                </div><!-- End .step-content -->
+            </div><!-- End .step-row -->
+            <div class="step-row">
+                <div class="step-content">
+                    <h2>3. Get paid instantly</h2>
+                    <blockquote>
+                        <p>Keep 100% of then money you make with Venmo, Paypal or Cash</p>
+                    </blockquote>
+                </div><!-- End .step-content -->
+                <figure class="step-image">
+                    <img src="images/homepage/item3.png" class="wow zoomIn" alt="Step image">
+                </figure>
+            </div><!-- End .step-row -->
+        </div><!-- End .steps-container -->
+    </div><!-- End .center-container -->
+
+    <div class="container">
+        <div class="steps-action">
+            <h3>Your Talent. Your Business. Your Way</h3>
+            <p>Just do what you’re good at and keep 100% of your hard earned money when you do it. It’s that simple!</p>
+            <a href="javascript:void(0);" class="btn btn-custom7 btn-lger wow shake" ng-click="getStart()">GET  STARTED IT’S FREE</a>
+        </div><!-- End .step-action -->
+    </div><!-- end .container -->
+</div><!-- End .steps-section -->
+
+<div class="knacks-section knacks-section-cus index-knacks-section knack-list">
+    <div class="container">
+        <h2 class="title">Discover knacks from talented students near you</h2>
+        <div class="row">
+            <div id="item-container" class="flip-wrapper">
+                <div class="item-wrapper flip-container col-md-4 col-lg-3 col-sm-6 col-xs-12" ng-repeat="item in knacks track by $index">
+                    <div ng-include="'views/knacks/single_in_list.html'"></div>                    
+                </div>
+            </div><!-- End #item-container  -->
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="btn-more-container text-center btn-more-container-cus">
+            <a ui-sref="knack-offered" class="btn btn-custom8 btn-more btn-border wow shake">SHOW MORE KNACKS</a>
+        </div><!-- End .text-center -->
+    </div><!-- End .container -->
+
+</div><!-- End .knacks-section -->
+
+<div class="tweets-section">
+    <div class="container">
+        <h3 class="title">Tweets from happy knackers</h3>
+        <div class="twitter-feed">
+            <ul class="tweet_list">
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user1.jpg" alt="Jack Simmons">
+                        </figure>
+                        <h5>Jack Simmons</h5>
+                        <a href="#" target="_blank">@jsims</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content"><a href="#">@Uknack</a> has been a blessing! No more pinning flyers on bulletin boards, or screening sketchy people from Craigslist. Just post, get hired and get paid! <a href="#">#hallelujah</a></div><!-- End .tweet-content -->
+                </li>
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user2.jpg" alt="James Poter">
+                        </figure>
+                        <h5>James Poter</h5>
+                        <a href="#" target="_blank">@magicjp</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content">I always wanted to do more hairdressing gigs, but I could never get people to book me. Now with <a href="#">@Uknack</a>, I get booked like 2-3 times a week. Awesome service!</div><!-- End .tweet-content -->
+                </li>
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user3.jpg" alt="James Poter">
+                        </figure>
+                        <h5>Jessica Morgan</h5>
+                        <a href="#" target="_blank">@jessen</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content">Great idea <a href="#">@Uknack</a>! I’ve been having a blast learning and trying out new knacks. If only my business classes were this exciting. #sighs</div><!-- End .tweet-content -->
+                </li>
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user4.jpg" alt="Jack Simmons">
+                        </figure>
+                        <h5>Monica Munoz</h5>
+                        <a href="#" target="_blank">@monica</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content">How in the world did we make money in college before <a href="#">@Uknack</a>? It’s so easy to get hired and get paid with Venmo. I just wish I found it sooner.</div><!-- End .tweet-content -->
+                </li>
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user5.jpg" alt="James Poter">
+                        </figure>
+                        <h5>Ross Fox</h5>
+                        <a href="#" target="_blank">@rosjp</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content">Just made my first $20 on <a href="#">@Uknack</a>! If it really is as easy as this, then I’ll definitely have a <a href="#">#happysemester</a></div><!-- End .tweet-content -->
+                </li>
+                <li>
+                    <header>
+                        <figure>
+                            <img src="images/tweets/user6.jpg" alt="James Poter">
+                        </figure>
+                        <h5>Carol Pena</h5>
+                        <a href="#" target="_blank">@carol</a>
+                    </header>
+                    <a class="twitter-icon" href="#" target="_blank"></a>
+                    <div class="tweet-content">If you haven’t done so already, you guys gotta check out <a href="#">@Uknack</a>. It just might be the greatest invention for college students since the frizz-bee.</div><!-- End .tweet-content -->
+                </li>
+            </ul>
+        </div><!-- End .twitter-feed -->
+    </div><!-- End .container -->
+</div><!-- End .tweets-section -->
+
+
+
+
+
+<!--- jQuery -->
+<!-- Smoothscroll -->
+<!--
+<script src="js/smoothscroll.js"></script>
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/headroom.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/twitter/jquery.tweet.min.js"></script>
+<script src="js/main.js"></script> -->
+	
+

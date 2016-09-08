@@ -1,0 +1,20 @@
+<!--register-email-modal-->
+<form class="cropping-modal-form">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
+    </div><!-- End .modal-header -->
+    <div class="modal-body ">
+        <div ng-show="croppedImage!=null" class="cropped-img-wrapper">
+            <div class="crop-text">Cropped Image</div> 
+            <img ng-src="{{croppedImage}}" />
+        </div>
+        <div class="origin-img-wrapper">
+            <div class="crop-text">Original Image</div>
+            <canvas width="500" height="300" id="canvas" image-cropper image="sourceImage" cropped-image="croppedImage" crop-width="880" crop-height="562" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-custom" ng-click="cropFunc()"><strong>SAVE</strong>
+            </button>
+        </div> <!-- End .modal-footer -->
+    </div>
+</form>

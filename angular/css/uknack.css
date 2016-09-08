@@ -1,0 +1,278 @@
+.btn.btn-lger {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 20px;
+  box-shadow: 0 1px 1px rgba(30, 15, 31, 0.3);
+}
+.btn.btn-xl {
+  font-size: 22px;
+  font-weight: 700;
+  padding: 24px;
+  box-shadow: 0 1px 1px rgba(30, 15, 31, 0.3);
+}
+.btn-custom2,
+.btn-custom2:hover,
+.btn-custom2:focus,
+.btn-custom2:active {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.btn-custom7 {
+  color: #fff;
+  background-color: #fc548b;
+  border-color: #fc548b;
+}
+.btn-custom7:hover,
+.btn-custom7:focus,
+.btn-custom7:active {
+  color: #fff;
+  background-color: #f02458;
+  border-color: #f02458;
+}
+.btn-custom8 {
+  color: #fff;
+  background-color: #2477cc;
+  border-color: #2477cc;
+}
+.btn-custom8:hover,
+.btn-custom8:focus,
+.btn-custom8:active {
+  color: #fff;
+  background-color: #1368be;
+  border-color: #1368be;
+}
+.btn-custom8.btn-border {
+  color: #2477cc;
+  background-color: transparent;
+  border-color: #2477cc;
+}
+.btn-custom8.btn-border:hover,
+.btn-custom8.btn-border:focus,
+.btn-custom8.btn-border:active {
+  color: #fff;
+  background-color: #2477cc;
+  border-color: #2477cc;
+}
+.btn-custom11 {
+  color: white;
+  background-color: rgba(212, 212, 212, 0.3);
+  border: solid 2px white;
+}
+.btn-custom12 {
+  color: #1873d0;
+  border: solid 2px;
+  background: transparent;
+}
+.ps-container {
+  position: relative;
+}
+.ps-container.ps-active-x > .ps-scrollbar-x-rail,
+.ps-container.ps-active-y > .ps-scrollbar-y-rail {
+  background-color: transparent !important;
+}
+.ps-container > .ps-scrollbar-x-rail {
+  bottom: 0 !important;
+  height: 5px;
+}
+.ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  background-color: #d7e0e1 !important;
+  height: 5px;
+}
+.ps-container > .ps-scrollbar-y-rail {
+  right: 0 !important;
+  width: 5px;
+}
+.ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  background-color: #d7e0e1 !important;
+  width: 5px;
+}
+.ps-container:hover > .ps-scrollbar-x-rail,
+.ps-container:hover > .ps-scrollbar-y-rail {
+  opacity: 1 !important;
+}
+.ps-container.ps-theme-primary {
+  position: relative;
+}
+.ps-container.ps-theme-primary.ps-active-x > .ps-scrollbar-x-rail,
+.ps-container.ps-theme-primary.ps-active-y > .ps-scrollbar-y-rail {
+  background-color: transparent !important;
+}
+.ps-container.ps-theme-primary > .ps-scrollbar-x-rail {
+  bottom: 0 !important;
+  height: 5px;
+}
+.ps-container.ps-theme-primary > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  background-color: #fc598e !important;
+  height: 5px;
+}
+.ps-container.ps-theme-primary > .ps-scrollbar-y-rail {
+  right: 0 !important;
+  width: 5px;
+}
+.ps-container.ps-theme-primary > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  background-color: #fc598e !important;
+  width: 5px;
+}
+.ps-container.ps-theme-primary:hover > .ps-scrollbar-x-rail,
+.ps-container.ps-theme-primary:hover > .ps-scrollbar-y-rail {
+  opacity: 1 !important;
+}
+.ps-container.ps-theme-primary > .ps-scrollbar-x-rail,
+.ps-container.ps-theme-primary > .ps-scrollbar-y-rail {
+  opacity: 1 !important;
+  display: block !important;
+}
+body {
+  overflow: initial;
+}
+@media screen and (max-width: 767px) {
+  .fullpage #wrapper {
+    padding-bottom: 62px;
+  }
+}
+@media screen and (max-width: 1500px) and (min-width: 1200px) {
+  .special-row .col-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .special-row .col-side {
+    padding-left: 0;
+    padding-right: 15px;
+  }
+  .special-row .col-side .nav-tabs > li > a {
+    font-size: 14px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+#category-boxes {
+  margin-top: -9px;
+  height: 198px !important;
+}
+#category-boxes .checkbox-inline {
+  margin: 0 0 9px !important;
+}
+footer .footer-box .form-control {
+  font-size: 16px;
+}
+@media screen and (max-width: 480px) {
+  .knack-list .item-wrapper .item-profile .connection-list {
+    padding: 20px 0;
+  }
+}
+@media screen and (min-width: 1320px) and (max-width: 1400px) {
+  .flip-container,
+  .flipper,
+  .front,
+  .back {
+    width: 200px;
+  }
+}
+.single.knack-list .special-container .item-profile {
+  margin-bottom: 20px;
+}
+.single.marketplace .special-container .item-profile {
+  margin-bottom: 20px;
+}
+.messages-container {
+  height: 510px;
+}
+.messages-container .chats-list {
+  float: left;
+  width: 300px;
+  height: 100%;
+  overflow-x: hidden;
+}
+.messages-container .chats-container {
+  width: initial;
+  float: none;
+  margin-left: 300px;
+  padding: 30px 30px 80px 0;
+}
+.messages-container .chats-container footer {
+  margin: 0;
+  padding: 25px 40px;
+}
+.messages-container .chats-container footer .form-control {
+  padding-left: 0;
+}
+.messages-container .chats-container .chats-wrapper {
+  overflow: hidden;
+  padding: 0 40px;
+  height: 100% !important;
+}
+.messages-container .chats-container .chats-wrapper .chats-content {
+  padding: 0 !important;
+}
+.messages-container .chats-container .chats-wrapper .chats-content .messagege-contents-wrapper .header {
+  margin: 0;
+  padding-bottom: 35px;
+}
+.messages-container .not-found {
+  height: 100%;
+  padding: 200px 5% 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1873d0;
+}
+#chat-box {
+  left: initial;
+  right: 35px;
+}
+@media screen and (max-width: 767px) {
+  #chat-box {
+    right: 20px;
+    bottom: 65px;
+  }
+}
+.register-modal-form {
+  padding: 0 42px;
+}
+.register-modal-form .modal-header {
+  margin: 0 -50px;
+}
+.register-modal-form .modal-header .modal-header-img {
+  margin: 15px 0px 45px !important;
+}
+.register-modal-form .text-label {
+  text-align: center;
+  margin-bottom: -10px;
+}
+.register-modal-form .btn-lg {
+  margin: 0px 0px 15px !important;
+}
+.register-modal-form .btn-lg-facebook {
+  padding: 12px 0px 10px !important;
+}
+.register-modal-form .input-info-wrapper {
+  position: relative;
+}
+.register-modal-form .input-info-wrapper .info-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: 0;
+}
+.register-modal-form .register-modal-body {
+  margin-top: 30px !important;
+}
+.register-modal-form .modal-footer {
+  margin: 35px 0px;
+  font-size: 16px;
+}
+.register-modal-form .modal-footer h5 {
+  margin: 20px 0 40px;
+  font-size: 15px !important;
+}
+.register-modal-form .modal-footer .desc {
+  margin-top: 20px;
+}
+.register-modal-form .modal-footer .pull-left,
+.register-modal-form .modal-footer .pull-right {
+  margin: 20px 0px 5px !important;
+}

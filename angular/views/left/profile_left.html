@@ -1,0 +1,265 @@
+<aside class="sidebar profile" role="complementary" ng-class="{'user-can-edit': currentMenu=='profile_edit'}" ng-hide="user_not_found" ng-controller="profileCtrl">
+    <div class="sidebar-wrapper"
+        perfect-scrollbar ps-option="{suppressScrollX: true}">
+        <form name="profileForm" class="form">
+            <div class="widget widget-user">
+                <a ng-hide="is_public" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('name', $event)"></a>
+                <div class="user">
+                    <!-- <a ng-show="is_public && _user.profile().id != user.id && _user.connected_to(user.id)" class="icon-heart checked active" ng-click="_user.disconnect(user);"></a>
+                    <a ng-show="is_public && _user.profile().id != user.id && ! _user.connected_to(user.id)" class="icon-heart checked" ng-click="_user.connect(user);"></a> -->
+                    <a ng-show="! is_public" href="/#/public/{{user_post_data.username}}" class="camera"><img src="images/camera.png" /></a>
+                    <figure>
+                        <img ng-src="{{ user_post_data.picture || 'images/users/no_avatar.png'}}" title="{{ user_post_data.full_name }}" alt="User" width="100px" height="100px">
+                        <figcaption ng-show="! is_public">
+                            <input type="file" class="fileupload" image="user_post_data.picture" profile-fd-input>
+                            <i class="icon-camera-white"></i>
+                        </figcaption>
+                    </figure>
+                    <span class="owner-status" ng-class="{'on': user_post_data.is_online}"></span>
+                    <h3 class="user-title" ng-show="user_post_data.full_name==''">Name</h3>
+                    <h3 class="user-title" ng-show="user_post_data.full_name!=''">{{ user_post_data.full_name }}</h3>
+                    <p class="user-college" ng-show="user_post_data.college==null">University</p>
+                    <p class="user-college" ng-show="user_post_data.college!=null">{{ user_post_data.college }}</p>
+                    <div class="dropdown" ng-class="{ open:edit_field=='name' }">
+                        <div class="dropdown-menu" aria-labelledby="edit-name" outside_click="close_edit()">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="full_name" ng-model="user_post_data.full_name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown-box-container">
+                                    <div class="dropdown-box" ng-class="{'open': isCollegeBoxOpened == true}" outside-click="isCollegeBoxOpened=false">
+                                        <div class="dropdown-box-title" ng-click="isCollegeBoxOpened = !isCollegeBoxOpened" ng-show="user_post_data.college==null">University</div>
+                                        <div class="dropdown-box-title" ng-click="isCollegeBoxOpened = !isCollegeBoxOpened" ng-show="user_post_data.college!=null">{{user_post_data.college}}</div>
+                                        <div class="dropdown-box-content">
+                                            <div ng-click="toggleCollegeBox(college)" ng-repeat="college in colleges track by $index"><span>{{ college }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown-box-container">
+                                    <div class="dropdown-box" ng-class="{'open': isAgeBoxOpened == true}" outside-click="isAgeBoxOpened=false">
+                                        <div class="dropdown-box-title" ng-click="isAgeBoxOpened = !isAgeBoxOpened" ng-show="user_post_data.year==null">Year</div>
+                                        <div class="dropdown-box-title" ng-click="isAgeBoxOpened = !isAgeBoxOpened" ng-show="user_post_data.year!=null">{{user_post_data.year}}</div>
+                                        <div class="dropdown-box-content">
+                                            <div ng-click="toggleYearBox(year)" ng-repeat="year in years track by $index"><span>{{ year }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="location" placeholder="Age" ng-model="user_post_data.age">
+                            </div>
+                            <button type="button" class="btn btn-custom3 btn-block" ng-click="save_profile();"><strong>SAVE</strong></button>
+                        </div><!-- End .dropdown-menu -->
+                    </div><!-- End .dropdown -->
+                </div><!-- End .user -->
+            </div>
+        </form>
+        <form name="promoteForm" class="form">
+            <div class="widget promote">
+                <div class="cost">
+                    <!-- <p>$0</p> -->
+                    Since {{user_post_data.created_at}}
+                </div>
+                <div class="rating">
+                    <span>{{user_post_data.year}}<span ng-show="user_post_data.age!=null"> &middot; {{user_post_data.age}}y/o</span></span><br/>
+                    <div class="ratings-container">
+                            <span class="ratings-wrapper">
+                                <span class="ratings" ng-style="{'width':(user_post_data.rating * 100 / 5) + '%'}"></span>
+                            </span>
+                        <span class="ratings-count">({{user_post_data.rating_count}})</span>
+                    </div>
+                    <br/>
+                    <span>Last seen: {{user_post_data.last_seen}}</span><br/>
+                </div>
+                <div class="dropdown promote-dropdown" ng-class="{ open:edit_field=='promote'}">
+                    <a ng-show="! is_public" class="btn btn-custom3 btn-block user-promote-btn dropdown-toggle" ng-click="edit_profile('promote', $event)"><strong>PROMOTE YOUR PAGE</strong></a>
+                    <a ng-show="is_public" class="btn btn-custom btn-block user-promote-btn dropdown-toggle" ng-click="contactMe(user_post_data.first_name)"><strong>CONTACT ME</strong></a>
+                    <ul class="dropdown-menu" outside_click="close_edit()">
+                        <li><a facebook-feed-share data-url="{{home_url}}/#/public/{{user_post_data.username}}" data-caption="{{user_post_data.full_name}}" data-picture="{{ user_post_data.picture || 'images/users/no_avatar.png'}}"><span class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</span> Promote on Facebook</a></li>
+                        <li><a ng-click="shareProfileTweet(user_post_data.username, user_post_data.full_name)"><span class="social-icon icon-twitter-color" title="Like us on Twitter">Twitter</span> Promote on Twitter</a></li>
+                        <li><a ng-click="shareProfilePinterest(user_post_data.username, user_post_data.full_name, user_post_data.picture)"><span class="social-icon icon-pinterest-color" title="Like us on Pinterest">Pinterest</span> Promote on Pinterest</a></li>
+                    </ul>
+                </div><!-- End .dropdown -->
+            </div><!-- End .widget -->
+        </form>
+
+        <form name="socialForm" class="form">
+            <div class="widget social">
+                <div class="social-icons">
+
+                    <a target="_blank" ng-if="user_post_data.social_links.facebook != ''" ng-href="{{user_post_data.social_links.facebook}}" class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</a>
+                    <a target="_blank" ng-if="user_post_data.social_links.facebook == ''" ng-href="{{user_post_data.social_links.facebook}}" class="social-icon icon-facebook-color" title="Like us on Facebook">Facebook</a>
+                    <a target="_blank" ng-if="user_post_data.social_links.twitter != ''" ng-href="{{user_post_data.social_links.twitter}}" class="social-icon icon-twitter-color" title="Find us on Twitter">Twitter</a>
+                    <a target="_blank" ng-if="user_post_data.social_links.twitter == ''" ng-href="{{user_post_data.social_links.twitter}}" class="social-icon icon-twitter-color" title="Find us on Twitter">Twitter</a>
+                    <a target="_blank" ng-if="user_post_data.social_links.instagram != ''" ng-href="{{user_post_data.social_links.instagram}}" class="social-icon icon-instagram-color" title="Find us on Instagram">instagram</a>
+                    <a target="_blank" ng-if="user_post_data.social_links.instagram == ''" ng-href="{{user_post_data.social_links.instagram}}" class="social-icon icon-instagram-color" title="Find us on Instagram">instagram</a>
+                </div><!-- End .social-icons -->
+                <a ng-hide="is_public" href="" id="edit-social" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('social', $event)"></a>
+                <div class="dropdown" ng-class="{ open:edit_field=='social' }">
+                    <div class="dropdown-menu" aria-labelledby="edit-social" outside_click="close_edit()">
+                        <div class="form-group">
+                            <span class="input-social input-twitter"></span>
+                            <input type="text" class="form-control" name="twitter" ng-blur="twitter_focus_out()" ng-focus="twitter_focus_in()" ng-model="user_post_data.social_links.twitter" placeholder="twitter.com/yourname">
+                        </div><!-- End .form-group -->
+                        <div class="form-group">
+                            <span class="input-social input-instagram"></span>
+                            <input type="text" class="form-control" name="instagram" ng-blur="instagram_focus_out()" ng-focus="instagram_focus_in()" ng-model="user_post_data.social_links.instagram" placeholder="www.instagram.com/yourname">
+                        </div><!-- End .form-group -->
+                        <div class="form-group">
+                            <span class="input-social input-facebook"></span>
+                            <input type="text" class="form-control" name="facebook" ng-blur="facebook_focus_out()" ng-focus="facebook_focus_in()" ng-model="user_post_data.social_links.facebook" placeholder="www.facebook.com/yourname">
+                        </div><!-- End .form-group -->
+                        <!--
+                        <div class="form-group">
+                            <span class="input-social input-googleplus"></span>
+                            <input type="text" class="form-control" name="googleplus" ng-model="user_post_data.social_links.googleplus" placeholder="Googleplus">
+                        </div><!-- End .form-group -->
+                        <button type="button" class="btn btn-custom3 btn-block" ng-click="save_social();"><strong>SAVE</strong></button>
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .dropdown -->
+            </div><!-- End .widget -->
+        </form>
+
+        <form name="reasonForm" class="form">
+            <div class="widget hire-me">
+                <a ng-hide="is_public" href="" id="edit-services" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('reason', $event)"></a>
+                <div class="desc edit-section dropdown edit-title" ng-class="{ open:edit_field=='reason' }">{{user_post_data.reasons.length}} things  I'm good at
+                    <div class="dropdown-menu" aria-labelledby="edit-services" outside_click="close_edit()">
+                        <div class="form-group hire-me-edit-box" ng-repeat="reason in user_post_data.reasons track by $index">
+                            <input type="text" class="form-control" name="description" ng-model="user_post_data.reasons[$index]" ng-focus="edit_hire_me_inx = $index" ng-blur="edit_hire_me_inx = -1">
+                            <a class="btn-close" ng-click="remove_reason($index)"><img src="images/sprites-images/close.png"/></a>
+                        </div><!-- End .form-group -->
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 10px;">
+                                <button type="button" class="btn btn-custom3 btn-block" ng-click="save_reasons();"><strong>SAVE</strong></button>
+                            </div><!-- End .col-xs-6 -->
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-custom4 btn-border btn-block" ng-click="add_more_reason()" ng-show="user_post_data.reasons.length<5">Add more</button>
+                            </div><!-- End .col-xs-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .dropdown -->
+                <!--
+                <div class="hire-me-box" ng-repeat="desc in user.descriptions">{{ desc.description }}</div><!-- End .about-box -->
+                <div class="reason-wrapper">
+                    <div class="reason-item" ng-repeat="reason in user_post_data.reasons track by $index">{{user_post_data.reasons[$index]}}</div>
+                </div>
+            </div><!-- End .widget -->
+        </form>
+
+        <form name="aboutForm" class="form">
+            <div class="widget about">
+                <a ng-hide="is_public" href="" id="edit-services" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('about', $event)"></a>
+                <div class="desc edit-section dropdown" ng-class="{ open:edit_field=='about' }">More about me...
+                    <div class="dropdown-menu" aria-labelledby="edit-services" outside_click="close_edit()">
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="I’m a senior here at Harvard University and study bio-engineering. I love writing and reading. Contact me anytime if you need help." ng-model="user_post_data.about_me"></textarea>
+                        </div><!-- End .form-group -->
+                        <button type="button" class="btn btn-custom3 btn-block" ng-click="save_about();"><strong>SAVE</strong></button>
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .dropdown -->
+                <p class="more-about-text right-col">{{user_post_data.about_me}}</p>
+            </div><!-- End .widget -->
+        </form>
+
+        <form name="genderForm" class="form" ng-hide="is_public">
+            <div class="widget gender">
+                <div class="dropdown-box-container">
+                    <div class="dropdown-box" ng-class="{'open': isGenderBoxOpened == true}" outside-click="isGenderBoxOpened=false">
+                        <div class="dropdown-box-title" ng-click="isGenderBoxOpened = !isGenderBoxOpened" ng-show="user_post_data.gender==null">Gender</div>
+                        <div class="dropdown-box-title" ng-click="isGenderBoxOpened = !isGenderBoxOpened" ng-show="user_post_data.gender!=null">{{user_post_data.gender}}</div>
+                        <div class="dropdown-box-content">
+                            <div ng-click="toggleGenderBox(gender.name)" ng-repeat="gender in genders track by $index"><span>{{ gender.name }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- <form name="paymentForm" class="form" ng-hide="is_public">
+            <div class="widget payment-method">
+                <a href="" id="edit-services" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('payment-method', $event)"></a>
+                <div class="desc edit-section dropdown" ng-class="{ open:edit_field=='payment-method' }">My payment method
+                    <div class="dropdown-menu" aria-labelledby="edit-services" outside_click="close_edit()">
+                        <p>Enter your payment method to get paid directly</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                                    <img src="images/sprites-images/venmo.png" class="venmo-img" />
+                                </div>
+                                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                                    <input type="text" class="form-control payment-method" name="Venmo" placeholder="venmo.com/username" ng-blur="venmo_focus_out()" ng-focus="venmo_focus_in()" ng-model="user_post_data.payment_venmo">
+                                </div>
+                            </div>
+                        </div>End .form-group
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                                    <img src="images/sprites-images/paypal.png" class="paypal-img" />
+                                </div>
+                                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                                    <input type="text" class="form-control payment-method" name="Paypal" placeholder="paypal.com/username" ng-blur="paypal_focus_out()" ng-focus="paypal_focus_in()" ng-model="user_post_data.payment_paypal">
+                                </div>
+                            </div>
+                        </div>End .form-group
+                        <button type="button" class="btn btn-custom3 btn-block" ng-click="save_payment();"><strong>SAVE</strong></button>
+                    </div>End .dropdown-menu
+                </div>End .dropdown
+            </div>End .widget
+        </form> -->
+
+
+        <form name="publicurlForm" class="form" ng-hide="is_public">
+            <div class="widget uknack-url">
+                <a href="" id="edit-services" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('uknack-url', $event)"></a>
+                <div class="desc edit-section dropdown" ng-class="{ open:edit_field=='uknack-url' }">My Uknack URL
+                    <div class="dropdown-menu" aria-labelledby="edit-services" outside_click="close_edit()">
+                        <p>Promote your page with your Uknack URL</p>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Uknack URL" placeholder="www.uknack.com/username" ng-model="user_post_data.public_profile_url" ng-focus="profile_url_focus_in()" ng-blur="profile_url_focus_out()">
+                        </div><!-- End .form-group -->
+                        <button type="button" class="btn btn-custom3 btn-block" ng-click="save_public_url();"><strong>SAVE</strong></button>
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .dropdown -->
+            </div><!-- End .widget -->
+        </form>
+
+        <form name="notificationEmailForm" class="form" ng-hide="is_public">
+            <div class="widget uknack-url">
+                <a href="" id="edit-services" class="edit-icon dropdown-toggle" title="Edit" ng-click="edit_profile('notification-email', $event)"></a>
+                <div class="desc edit-section dropdown" ng-class="{ open:edit_field=='notification-email' }">Notifications email
+                    <div class="dropdown-menu" aria-labelledby="edit-services" outside_click="close_edit()">
+                        <p>Receive all notifications to this email</p>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" ng-model="user_post_data.notification_email" ng-change="notificationEmailForm.show_error = false">
+                        </div><!-- End .form-group -->
+                        <p style="font-size: 13px; color: #e20303;" ng-if="notificationEmailForm.email.$invalid && notificationEmailForm.show_error">
+                             Please enter a valid email
+                        </p>
+                        <button type="button" class="btn btn-custom3 btn-block" ng-click="save_notification_email();"><strong>SAVE</strong></button>
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .dropdown -->
+            </div><!-- End .widget -->
+        </form>
+
+        <footer class="footer">
+            <div class="footer-wrapper">
+                <!--<ul class="footer-menu clearfix">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>-->
+                <p class="say-hello">SAY HELLO</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon icon-facebook social-icon1" title="Like us on Facebook">Facebook</a>
+                    <a href="#" class="social-icon icon-twitter social-icon1" title="Find us on Twitter">Twitter</a>
+                    <a href="#" class="social-icon icon-instagram social-icon1" title="Find us on Instagram">Instagram</a>
+                </div><!-- End .social-icons -->
+                <p class="copyright">&copy; 2015 Uknack. All rights reserved</p>
+            </div>
+        </footer>
+    </div><!-- End .sidebar-wrapper -->
+</aside>
