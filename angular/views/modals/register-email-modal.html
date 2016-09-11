@@ -1,26 +1,373 @@
-<!--register-email-modal-->
-<form name="registerForm" class="register-modal-form" novalidate ng-submit="register(registerForm)">
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="cancel()" title="Close"><span aria-hidden="true">&times;</span></button>
-        <img class="modal-header-img" src="images/login_logo.png"/>
-        <h4 class="modal-title" id="modallabel4">Get Started Absolutely <span class="ext-text">Free</span></h4>
-        <h5 class="modal-subtitle">NO CREDIT CARD REQUIRED</h5>
-    </div><!-- End .modal-header -->
-    <div class="modal-body top-10">
-        <div class="form-group">
-            <div class="well" ng-show="message">
-                {{ message }}
-            </div>
-        </div>
-        <div class="form-group facebook-btn-wrapper input-info-wrapper">
-            <input name="email" type="email" class="form-control input-lg register-input im-icon" placeholder="Enter your .edu email address" ng-model="user.email" required>
-            <button class="info-btn" ng-click="openInfoModal()"></button>
-        </div><!-- End .from-group -->
+<style type="text/css">
+.popbtn {
+  background: #fb3366 none repeat scroll 0 0;
+  border-radius: 5px;
+  font-family: 'Lato';
+  font-weight: normal;
+  font-style: normal;
+  color: #fff;
+  font-size: 20px;
+  padding: 15px 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.popbtn:hover {
+	color: #fff;
+	background: #769aa3;
+	border-radius: 5px;
+}
+.overlay {
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+}
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+.popup {
+  border-radius: 3px;
+  background:#fff;
+  margin: 0 auto 0;
+  max-width: 820px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+.popup .close {
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  right: 52px;
+  text-decoration: none;
+  top: 12px;
+}
+.para{
+	float:left;
+}
+.para img{
+	width:100%;
+}
+.para p{
+	font-family: 'Lato';
+	font-weight: 900;
+	font-style: normal;
+	font-size:20px;
+}
+.left_side{
+	float:left;
+	width:50%;
+}
+.right_side{
+	float:right;
+	width:50%;
+	background: url("images/register_right.jpg") no-repeat scroll right center;
+	height:416px;
+}
+.left_input{
+	padding:20px;
+}
+.left_input h4{
+	color:#272f3f;
+	font:24px/28px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	text-align:center;
+	margin:20px 0 0;
+}
+.right_logo{
+	padding:20px;
+}
+.email_section {
+  float: left;
+  margin-top: 70px;
+  width: 100%;
+}
+.email_section label {
+  color: #272f3f;
+  float: left;
+  font: bold 12px "Lato";
+  margin-bottom: 10px;
+  text-transform:uppercase;
+}
+.email_section .address {
+  border: 1px solid #769aa3;
+  border-radius: 4px;
+  color: #769aa3;
+  font: 14px/22px "Lato";
+  height: 42px;
+  padding: 0 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.sign_btn {
+  background: #fb3366 none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px #ccc8cc;
+  color: #fff !important;
+  cursor: pointer;
+  float: left;
+  font: bold 14px/22px "Lato";
+  opacity: 1;
+  padding: 11px 0;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.3s ease 0s;
+  width: 100%;
+}
+.sign_btn:hover{
+	background:#769aa3;
+  cursor: auto;
+}
+.terms{
+	float:left;
+	width:100%;
+}
+.terms p{
+	text-align:center;
+	color:#829aa0;
+	font:14px/22px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+  margin: 14px 0;
+}
+.terms a{
+	color:#3383d5;
+	font:14px/22px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	text-decoration:underline;
+}
+.terms a:hover{
+	color:#769AA3;
+}
+.logo {
+  float: left;
+  margin-top: 60px;
+  text-align: center;
+  width: 100%;
+}
+.visiting_text {
+  float: left;
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+.visiting_text p{
+	color:#fff;
+	font:18px/24px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	margin:0;
+}
+.visiting_text img {
+  margin: 15px 0 5px;
+  text-align: center;
+}
 
-    </div><!-- End .modal-body -->
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-lg btn-custom btn-block"><strong>SIGNUP FREE</strong></button>
-        <h5 class="desc">By clicking "SignUp Free", I agree to Uknack's <a class="modal-link" ui-sref="terms">Terms of Service</a></h5>
-        <h5>Already a member? <a class="modal-link" ng-click="openLoginModal()">LOGIN</a></h5>
-    </div><!-- End .modal-footer -->
-</form>
+
+
+/**************login css start***************************/
+
+.popbtn_2 {
+  background: #fb3366 none repeat scroll 0 0;
+  border-radius: 5px;
+  font-family: 'Lato';
+  font-weight: normal;
+  font-style: normal;
+  color: #fff;
+  font-size: 20px;
+  padding: 15px 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.popbtn_2:hover {
+	color: #fff;
+	background: #769aa3;
+	border-radius: 5px;
+}
+.overlay_2 {
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+}
+.overlay_2:target {
+	visibility: visible;
+	opacity: 1;
+}
+.popup_2 {
+  border-radius: 3px;
+  background:#fff;
+  margin: 0 auto 0;
+  max-width: 820px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+.popup_2 .close {
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  right: 52px;
+  text-decoration: none;
+  top: 12px;
+}
+.para_2{
+	float:left;
+}
+.para_2 img{
+	width:100%;
+}
+.para_2 p{
+	font-family: 'Lato';
+	font-weight: 900;
+	font-style: normal;
+	font-size:20px;
+}
+.left_side_2{
+	float:left;
+	width:50%;
+}
+.right_side_2{
+	float:right;
+	width:50%;
+	background: url("images/invite_right.jpg") no-repeat scroll right center;
+	height:416px;
+}
+.left_input_2{
+	padding:20px;
+}
+.left_input_2 h4{
+	color:#272f3f;
+	font:24px/28px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	text-align:center;
+	margin:20px 0 0;
+}
+.right_logo_2{
+	padding:20px;
+}
+.email_section_2 {
+  float: left;
+  margin-top: 70px;
+  width: 100%;
+}
+.email_section_2 label {
+  color: #272f3f;
+  float: left;
+  font: bold 12px "Lato";
+  margin-bottom: 10px;
+  text-transform:uppercase;
+}
+.email_section_2 .address {
+  border: 1px solid #769aa3;
+  border-radius: 4px;
+  color: #769aa3;
+  font: 14px/22px "Lato";
+  height: 42px;
+  padding: 0 20px;
+  width: 89%;
+  margin-bottom: 20px;
+}
+.sign_btn_2 {
+  background: #fb3366 none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px #ccc8cc;
+  color: #fff !important;
+  cursor: pointer;
+  float: left;
+  font: bold 14px/22px "Lato";
+  opacity: 1;
+  padding: 11px 0;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.3s ease 0s;
+  width: 100%;
+}
+.sign_btn_2:hover{
+	background:#769aa3;
+}
+.terms_2{
+	float:left;
+	width:100%;
+}
+.terms_2 p{
+	text-align:center;
+	color:#829aa0;
+	font:14px/22px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+}
+.terms_2 a{
+	color:#3383d5;
+	font:14px/22px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	text-decoration:underline;
+}
+.logo_2 {
+  float: left;
+  margin-top: 60px;
+  text-align: center;
+  width: 100%;
+}
+.visiting_text_2 {
+  float: left;
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+.visiting_text_2 p{
+	color:#fff;
+	font:18px/24px 'Lato';
+	font-weight: normal;
+	font-style: normal;
+	margin:0;
+}
+.visiting_text_2 img {
+  margin: 15px 0 5px;
+  text-align: center;
+}
+
+
+
+</style>
+
+  <div class="popup"> <a  class="close" ng-click="cancel()">&times</a>
+    <div class="left_side">
+    <aside class="left_input">
+      <h4>Sign up to buy and sell with your<br> friends and classmates.</h4>
+      <form name="registerForm" class="email_section" novalidate ng-submit="register(registerForm)">
+        <label>.EDU Email</label><br>
+        <input class="address" type="text" placeholder="Please Enter Your .EDU Email Address" ng-model="user.email" required><br>
+        <input class="sign_btn" type="submit" value="SIGN UP FREE" placeholder="SIGN UP FREE">
+      </form>
+      <div class="terms">
+        <p>By clicking “Sign Up Free”, I agree to<br> Uknack’s <a href="javascript:void()">Terms of Service</a></p>
+      </div>
+    </aside>
+    </div>
+    <div class="right_side">
+    <aside class="right_logo">
+      <a class="logo" href="javascript:void()"><img src="images/logo.png" alt=""></a>
+      <div class="visiting_text">
+      <p>Thank you for visiting Uknack! We’re very<br> happy that you’re interested in joining us.</p>
+      <img src="images/register_centerline.png" alt="">
+      <p>We’re a small community of hustlers and<br> entrepreneurs in college. We love trying out<br> new and interesting things and turning them<br> into fun and fullfilling businesses.</p>
+      </div>
+    </aside>
+    </div>
+  </div>

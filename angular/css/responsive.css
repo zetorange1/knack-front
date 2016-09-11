@@ -35,12 +35,20 @@ Responsive Css File
 		width:65.1%;
 	}
 
-    .modal-dialog{
+    .modal-dialog {
         width: 600px;
     }
 
-    .modal-content{
+    .modal-content {
         padding: 0 40px;
+    }
+
+    .wide-modal .modal-dialog {
+    	width: 820px;
+    }
+
+    .wide-modal .modal-content {
+    	padding: 0;
     }
 
 	#post-knack-modal .modal-dialog,
@@ -172,10 +180,13 @@ Responsive Css File
 		margin-right:-27.5px;
 	}
 
-	.special-row .col-side,
+	.special-row .col-side {
+		padding-left: 0;
+		padding-right: 55px; 
+	}
 	.special-row .col-content {
-		padding-left:27.5px;
-		padding-right:27.5px;
+		padding-left:55px;
+		padding-right:55px;
 	}
 
 	#header .container.special-container {
@@ -441,6 +452,10 @@ Responsive Css File
 	#header .container {
 		width:auto;
 	}
+
+	.arrow-from-welcome {
+		display: none;
+	}
 	.top-filter-container {
 		position: relative;
 		z-index: 10;
@@ -681,6 +696,24 @@ Responsive Css File
 	.cropping-modal-form .modal-footer .btn {
 		width: auto;
 	}
+
+	.wide-modal .modal-dialog {
+  		width: 409px !important;
+  	}
+  	.wide-modal .left_side_2,
+  	.wide-modal .left_side {
+  		width: 100% !important;
+  	}
+  	.wide-modal .right_side_2,
+  	.wide-modal .right_side {
+  		width: 100% !important;
+  	}
+  	.wide-modal .popup_2 .close,
+  	.wide-modal .popup .close {
+  		color: #000;
+  		right: 20px;
+  		top: 10px;
+  	}
 }
 
 @media (max-width: 767px) {
@@ -938,6 +971,9 @@ Responsive Css File
 	    display: inline-block;
 	    float: none;
 	}
+	#content.profile > .container {
+    	margin-top: 100px;
+  	}
 
 	#logo {
 	    float: none;
@@ -1218,7 +1254,21 @@ Responsive Css File
 
 	.btn-new-knack, .btn-new-item {
 		margin-bottom: 10px;
-	}	
+	}
+
+	.wide-modal .modal-dialog {
+		width: 409px;
+		margin: 10px auto 10px;
+	}
+	.wide-modal .modal-content {
+		padding: 0;
+	}
+	.wide-modal .left_side {
+		width: 100%
+	}
+	.wide-modal .right_side {
+		width: 100%
+	}
 }
 
 @media (max-width: 600px) {
@@ -1280,6 +1330,13 @@ Responsive Css File
 	}
 	.upload-img {
 		width: 90%;
+	}
+	#welcome-section .welcome-content .contents {
+		height: 110px;
+		width: 90%;
+	}
+	#welcome-section .welcome-content .store .contents {
+		margin-left: 10%;
 	}
 }
 
@@ -1673,6 +1730,30 @@ Responsive Css File
 	.btn-lg-facebook img {
 		padding-right: 16px;
 	}
+	#welcome-section .welcome-content .contents {
+		height: 155px;
+	}
+	.wide-modal .modal-dialog {
+  		width: 90% !important;
+  	}
+  	.wide-modal .right_side {
+  		height: auto;
+  		padding-bottom: 20px;
+  	}
+  	.wide-modal .visiting_text,
+  	.wide-modal .visiting_text_2 {
+  		float: none;
+  	}
+  	.wide-modal .right_logo,
+  	.wide-modal .right_logo_2 {
+  		padding: 0;
+  	}
+  	.wide-modal .right_logo .logo {
+  		margin-top: 0;
+  	}
+  	.steps-action .form-group {
+  		width: 90%;
+  	}
 }
 
 @media (max-width: 380px) {
@@ -1813,7 +1894,12 @@ Responsive Css File
   	.payment-method {
   		margin-top: 5px;
   	}
-
+  	#welcome-section .welcome-content .contents {
+		height: 165px;
+	}
+	.steps-action .form-group {
+  		width: 100%;
+  	}
 }
 
 

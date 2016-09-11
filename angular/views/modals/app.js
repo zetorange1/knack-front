@@ -595,7 +595,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/register-email-modal.html',
                     controller: 'RegisterEmailModalCtl',
-                    windowClass: 'vcenter-modal'
+                    windowClass: 'vcenter-modal wide-modal'
                 });
 
                 modalInstance.result.then(function (data) {
@@ -755,7 +755,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/login-modal.html',
                     controller: 'LoginModalCtl',
-                    windowClass: 'vcenter-modal'
+                    windowClass: 'vcenter-modal wide-modal'
                 });
 
                 modalInstance.result.then(function (data) {
@@ -840,7 +840,7 @@ define(['angularAMD'], function(app) {
                         animation: true,
                         templateUrl: 'views/modals/login-modal.html',
                         controller: 'LoginModalCtl',
-                        windowClass: 'vcenter-modal'
+                        windowClass: 'vcenter-modal wide-modal'
                     });
 
                     modalInstance.result.then(function (data) {
@@ -911,7 +911,7 @@ define(['angularAMD'], function(app) {
                         animation: true,
                         templateUrl: 'views/modals/login-modal.html',
                         controller: 'LoginModalCtl',
-                        windowClass: 'vcenter-modal'
+                        windowClass: 'vcenter-modal wide-modal'
                     });
 
                     modalInstance.result.then(function (data) {
@@ -1292,7 +1292,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/login-modal.html',
                     controller: 'LoginModalCtl',
-                    windowClass: 'vcenter-modal',
+                    windowClass: 'vcenter-modal wide-modal',
                     resolve: {
                         message: function() {
                             var message = '<p>Uknack lets students create fun and fulfilling business together. To protect the integrity of our community, and the safety of our members, we ask that everyone signs up with their .edu email addresses. Thank you!</p>';
@@ -1314,7 +1314,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/register-email-modal.html',
                     controller: 'RegisterEmailModalCtl',
-                    windowClass: 'vcenter-modal',
+                    windowClass: 'vcenter-modal wide-modal',
                     resolve: {
                         message: function() {
                             var message = '<p>Uknack lets students create fun and fulfilling business together. To protect the integrity of our community, and the safety of our members, we ask that everyone signs up with their .edu email addresses. Thank you!</p>';
@@ -1347,7 +1347,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/login-modal.html',
                     controller: 'LoginModalCtl',
-                    windowClass: 'vcenter-modal',
+                    windowClass: 'vcenter-modal wide-modal',
                     resolve: {
                         message: function() {
                             var message = '<p>Uknack lets students create fun and fulfilling business together. To protect the integrity of our community, and the safety of our members, we ask that everyone signs up with their .edu email addresses. Thank you!</p>';
@@ -1369,7 +1369,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/register-email-modal.html',
                     controller: 'RegisterEmailModalCtl',
-                    windowClass: 'vcenter-modal',
+                    windowClass: 'vcenter-modal wide-modal',
                     resolve: {
                         message: function() {
                             var message = '<p>Uknack lets students create fun and fulfilling business together. To protect the integrity of our community, and the safety of our members, we ask that everyone signs up with their .edu email addresses. Thank you!</p>';

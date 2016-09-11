@@ -30,7 +30,7 @@
             <nav class="header-menu" role="navigation">
                 <ul class="menu clearfix">
                     <li ng-class="{active: currentMenu=='feed'}" style="display: none;"><a href="" ng-click="clickFeed()" class="no-padding-left">Feed</a></li>
-                    <li ng-class="{active: currentMenu=='knacks'}"><a href="" ui-sref="knack-offered" style="padding-left: 0px;">Knacks</a></li>
+                    <li ng-class="{active: currentMenu=='knacks'}"><a href="" ui-sref="knack-offered" style="padding-left: 0px;">Services</a></li>
                     <li ng-class="{active: currentMenu=='marketplace'}"><a href="" ui-sref="marketplace">Marketplace</a></li>
                 </ul>
             </nav><!-- End .header-menu -->
@@ -107,10 +107,10 @@
         </button>
         <div class="collapse navbar-collapse" id="main-menu-container">
             <ul class="menu clearfix">
-            <li><a ui-sref="knack-offered">Knacks</a></li>
+            <li><a ui-sref="knack-offered">Services</a></li>
                 <li><a ui-sref="marketplace">Marketplace</a></li>
                 <li ng-hide="is_authenticated"><a href="javascript:void(0);" ng-click="openLoginModal()">Login</a></li>
-                <li ng-hide="is_authenticated"><a id="id-sign-up" href="javascript:void(0);" class="navbar-btn btn" ng-click="registerModal()">SIGN UP FREE</a></li>
+                <li ng-hide="is_authenticated"><a id="id-sign-up" href="javascript:void(0);" class="navbar-btn btn" ng-click="registerModal()">BECOME A SELLER</a></li>
             </ul>
         </div><!-- End .navbar-collapse -->
     </div><!-- End .container -->

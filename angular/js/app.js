@@ -238,6 +238,7 @@ define(['angularAMD',
                     .state('gethired', route.resolve('/gethired', 'views/homepage/gethired'))
                     .state('economy', route.resolve('/economy', 'views/homepage/economy'))
                     .state('faqs', route.resolve('/faqs', 'views/homepage/faqs'))
+                    .state('sellers', route.resolve('/sellers', 'views/homepage/sellers'))
                     .state('knack-offered', $.extend(route.resolve('/knacks/offered', 'views/knacks'), {data: {type: 'knack-offered'}}))
                     .state('knack-offered-single', $.extend(route.resolve('/knacks/offered/:id', 'views/knacks'), {data: {type: 'knack-offered'}}))
                     .state('knack-wanted', $.extend(route.resolve('/knacks/wanted', 'views/knacks'), {data: {type: 'knack-wanted'}}))

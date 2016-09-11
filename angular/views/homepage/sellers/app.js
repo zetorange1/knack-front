@@ -1,6 +1,6 @@
 'use strict';
 define(['app', 'WOW', 'owl.carousel'], function(app, WOW, owlCarousel) {
-    app.register.controller('indexCtrl', [
+    app.register.controller('sellersCtrl', [
         'localStorageService',
         '$scope',
         '$rootScope', '$resource', '$modal', '$timeout', '$state', '$stateParams',

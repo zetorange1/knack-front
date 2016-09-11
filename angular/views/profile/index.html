@@ -1,4 +1,9 @@
-<ng-include src="'views/left/profile_left.html'"></ng-include>
+<ng-include src="'views/left/profile_left.html'" style="position: relative; z-index: 1;"></ng-include>
+<div class="arrow-from-welcome" style="position: absolute; top: 145px; left: 390px; z-index: 99;">
+    <img src='images/welcome-arrow1.png' style="position: absolute;" />
+    <img src='images/welcome-arrow2.png' style="position: absolute; left: -125px; top: 15px;" />
+    <img src='images/welcome-arrow3.png' style="position: absolute; left: -120px; top: -3px;" />
+</div>
 <div id="content" role="main" class="profile private-profile" ng-controller="profileCtrl" ng-show="user">
     <div class="container special-container" ng-show="user_not_found">
         <br><br>
@@ -6,34 +11,52 @@
     </div>
     <div class="container special-container" ng-show="!(user | isEmpty)"">
         <div class="row special-row">
+            <div class="col-content">
+                <div class="tab-pane active" id="welcome-header">
+                    <p class="welcome-title">Welcome to Uknack!</p>
+                    <p class="welcome-message">
+                        Please get started by filling your profile in the left column, by filling your profile you'll gain progress
+                    </p>
+                </div>
+            </div>
             <div class="col-content" ng-hide="is_public || (knacks.length > 0 || items.length > 0)">
                 <!-- Tab panes -->
                 <div class="tab-content tab-content-cus">
                     <div role="tabpanel" class="tab-pane active" id="welcome-section">
-                        <p class="welcome-title">Welcome to</p>
-                        <img src="images/welcome-logo.png" />
                         <p class="welcome-message">
-                            Get started by filling out <br/>your profile in the left column
+                            With your Uknack account, you can now:
                         </p>
                         <div class="welcome-content">
                             <div class="knacks">
-                                <p class="title">KNACKS</p>
-                                <p class="content">Services you offer are called Knacks</p>
-                                <p class="message">Start Doing Business</p>
+                                <div class="div-or">OR</div>
+                                <img src="images/welcome-icon-hire.png" />
+                                <p class="title">HIRE & BUY</p>
+                                <ul class="contents">
+                                    <li>Browse Knacks & Items</li>
+                                    <li>Chat/Message Knackers</li>
+                                    <li>Hire Knackers</li>
+                                    <li>Buy items in Marketplace</li>
+                                </ul>
                                 <a ng-click="openPostKnackModal()" class="btn btn-custom">
-                                    POST YOUR FIRST KNACK
+                                    BROWSE KNACKS
                                     <!--<span class="glyphicon glyphicon-indent-left visible-xs"></span>-->
                                 </a>
-                                <p class="link" ng-click="gotoKnackIdea()">Click here for some ideas</p>
+                                <p class="comment">Hire your first knacker!</p>
                             </div>
                             <div class="store">
-                                <p class="title">STORE</p>
-                                <p class="content">Items you sell are shown in your store</p>
-                                <p class="message">Open Your Store</p>
+                                <img src="images/welcome-icon-post.png" />
+                                <p class="title">POST & SELL</p>
+                                <ul class="contents">
+                                    <li>Do what you love</li>
+                                    <li>Get Hired by Clients</li>
+                                    <li>Get Paid via Venmo/Paypal</li>
+                                    <li>Promote on Social Media</li>
+                                </ul>
                                 <a ng-click="openPostItemModal()" class="btn btn-custom">
-                                    SELL YOUR FIRST ITEM
+                                    START KNACKING
                                     <!--<span class="glyphicon glyphicon-indent-left visible-xs"></span>-->
                                 </a>
+                                <p class="comment">Sell your first knack!</p>
                             </div>
                             <div style="clear: both;"></div>
                         </div>

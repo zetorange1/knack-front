@@ -33,7 +33,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/login-modal.html',
                     controller: 'LoginModalCtl',
-                    windowClass: 'vcenter-modal'
+                    windowClass: 'vcenter-modal wide-modal'
                 });
                 modalInstance.result.then(function (data) {
                         console.log(data);
@@ -68,7 +68,7 @@ define(['angularAMD'], function(app) {
                     animation: true,
                     templateUrl: 'views/modals/register-email-modal.html',
                     controller: 'RegisterEmailModalCtl',
-                    windowClass: 'vcenter-modal'
+                    windowClass: 'vcenter-modal wide-modal'
                 });
 
                 modalInstance.result.then(function (data) {

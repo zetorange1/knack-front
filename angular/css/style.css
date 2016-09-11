@@ -1865,8 +1865,8 @@ aside .footer .copyright {
 }
 
 .modal-backdrop.in {
-  opacity:0.6;
-  filter:alpha(opacity=60);
+  opacity:0.9;
+  filter:alpha(opacity=90);
 }
 
 .modal-open #wrapper {
@@ -3289,8 +3289,23 @@ aside .footer .copyright {
 }
 
 .welcome-profile.connections-box {
-  padding-bottom: 62px;
-  padding-bottom: 100px;
+  text-align: center; 
+  padding-top: 95px;
+  padding-bottom: 116px;
+}
+.connections-box.welcome-profile .no-review-title {
+  color: #272f3f;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 30px;
+  padding: 2px;
+  margin-top: 40px;
+}
+.connections-box.welcome-profile .no-review-content {
+  font-size: 16px;
+  padding: 10px;
+  height: 70px;
+
 }
 .tab-content-cus {
   box-shadow: 0px 1px 3px #CEDFE1;
@@ -3383,10 +3398,13 @@ aside .footer .copyright {
 }
 
 .connections-box .alter-msg {
-  color: #4c92db;
-  margin-top: 40px;
   text-align: center;
-  font-size: 17px;
+  font-size: 14px;
+  color: #769aa3;
+  border-top: 1px solid;
+  border-top-color: #cedfe1;
+  padding-top: 15px;
+  margin-top: 40px;
 }
 
 .connections-box .alter-msg p {
@@ -3525,7 +3543,7 @@ aside .footer .copyright {
   top: 3px;
 }
 .widget-user .user .camera {
-  top: 16px !important;
+  top: 2px !important;
 }
 .widget-user figure,
 .widget-user img {
@@ -4552,10 +4570,28 @@ aside .footer .copyright {
   z-index: 900 !important;
 }
 
+#welcome-header {
+  background: transparent;
+}
+
+#welcome-header .welcome-title {
+  font-weight: bold;
+  font-size: 22px;
+  color: #272F3F;
+  margin-bottom: 6px;
+}
+
+#welcome-header .welcome-message {
+  font-size: 17px;
+  color: #434343;
+}
+
 #welcome-section {
   background-color: white;
   padding-top: 45px;
   text-align: center;
+  border-top: solid 4px;
+  border-top-color: #fc548b;
 }
 
 #welcome-section .welcome-title {
@@ -4571,12 +4607,30 @@ aside .footer .copyright {
 
 #welcome-section .welcome-content {
   margin-top: 40px;
+  padding-bottom: 50px;
 }
 
 #welcome-section .welcome-content .knacks, #welcome-section .welcome-content .store {
   float: left;
   width: 50%;
   padding: 0px 0px 15px 0;
+  position: relative;
+}
+
+#welcome-section .welcome-content .knacks .div-or {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  right: -17.2px;
+  top: 43%;
+  border-radius: 25px;
+  background: white;
+  color: #769aa3;
+  padding: 7px;
+  padding-top: 9px;
+  font-family: Myriad Pro;
+  font-size: 12px;
+  border: solid 1px;
 }
 
 #welcome-section .welcome-content .knacks:first-child {
@@ -4596,16 +4650,33 @@ aside .footer .copyright {
 #welcome-section .welcome-content .title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 55px;
-  line-height: 82px;
+  margin-bottom: 10px;
+  line-height: 45px;
+  color: #3a5282;
   /* border-top: 1px solid #cedfe1; */
   /* border-bottom: 1px solid #cedfe1; */
 }
 
-#welcome-section .welcome-content .content {
-  width: 65%;
-  margin: 0 auto;
-  font-size: 22px;
+#welcome-section .welcome-content .contents {
+  list-style-type: disc;
+  list-style: inside;
+  width: 75%;
+  font-size: 16px;
+  margin: auto;
+  margin-bottom: 30px;
+  color: #272F3F;
+}
+
+#welcome-section .welcome-content .contents li {
+  list-style-image: url('../images/welcome-content-bullet.png');
+  text-align: left;
+}
+
+#welcome-section .welcome-content .comment {
+  color: #769AA3;
+  font-size: 15px;
+  margin-top: 6px;
+  margin-bottom: 0;
 }
 
 #welcome-section .welcome-content .message {
@@ -4620,6 +4691,8 @@ aside .footer .copyright {
   font-weight: bold;
   white-space: normal;
   margin: 0 10px;
+  width: 68%;
+  margin-right: 27px;
 }
 
 
@@ -4993,15 +5066,17 @@ aside .footer .copyright {
 }
 
 .main-header .menu li .btn.navbar-btn {
-  border-color:#fff;
   padding:7px 20px;
-  margin:0;
+  background-color: #fc548b;
+  border-color: #fc548b;
+  margin: 0;
 }
 
 .main-header .menu li .btn.navbar-btn:hover,
 .main-header .menu li .btn.navbar-btn:focus {
-  color:#fb3366;
-  border-color:#fb3366;
+  background-color: #f02458;
+  border-color: #f02458;
+  color: #fff;
 }
 
 .main-header .navbar-collapse {
@@ -5202,7 +5277,7 @@ aside .footer .copyright {
 }
 
 .step-content {
-  padding-left: 56px;
+  padding-left: 95px;
 }
 
 .step-image + .step-content {
@@ -5256,7 +5331,7 @@ aside .footer .copyright {
 }
 
 .step-content blockquote:before {
-  content: '';
+  /*content: '';*/
   position: absolute;
   left:0;
   top:1px;
@@ -5285,9 +5360,57 @@ aside .footer .copyright {
   margin-bottom: 37px;
 }
 
+.steps-action p.help1 {
+  color: #92b0b8;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.steps-action p.help2 {
+  color: #fc548b;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 23px;
+  margin-bottom: 0;
+}
+
 .steps-action .btn {
   min-width: 260px;
   text-align: center;
+}
+
+.steps-action .form-group {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin: 5px;
+  width: 361px;
+  max-width: 361px;
+}
+
+.steps-action .form-control {
+  border: none;
+  height: 60px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #7c818a;
+  padding: 17.5px 72px 17.5px 30px;
+  margin: 0;
+  box-shadow: 0 1px 1px rgba(30, 15, 31, 0.30);
+}
+
+.steps-action .icon-email {
+  display: block;
+  width: 24px;
+  height: 16px;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  margin-top: -8px;
+  background-position: 0 0;
+  background-image: url(../images/sprites/sprites-add.png);
+  background-repeat: no-repeat;
 }
 
 .knacks-section {
@@ -8859,3 +8982,4 @@ aside .footer .footer-wrapper{
   padding-bottom:15px;
 }
 /*--------------- End by Girish ---------------*/
+

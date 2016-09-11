@@ -1,9 +1,9 @@
-<div class="col-side" ng-controller="profileCtrl">
+<div class="col-side col-review" ng-controller="profileCtrl">
     <ul class="nav nav-tabs no-margin" role="tablist">
         <!-- <li role="presentation" class="tab-pane lowercase" ng-class="{active:active_r_tab=='connections'}">
             <a href="" aria-controls="profile-connections" ng-click="activate_connections()">Favorite Knackers</a>
         </li> -->
-        <li role="presentation" class="tab-pane lowercase active" ng-class="{active:active_r_tab=='reviews'}">
+        <li role="presentation" class="tab-pane lowercase active" ng-class="{active:active_r_tab=='reviews'}" ng-if="reviews.length > 0">
             <a href="" aria-controls="profile-reviews active" ng-click="activate_reviews()">Reviews</a>
         </li>
     </ul>
@@ -155,43 +155,15 @@
         </div><!-- End .tab-pane -->
         <div role="tabpanel" class="tab-pane active" ng-show="reviews.length == 0" ng-class="{active:active_r_tab=='reviews'}">
             <div class="connections-box welcome-profile">
-                <div class="search-box">
-                    <input type="text" placeholder="Search classmate name..." id="search-text-input" />
-                    <a id="button-holder">
-                        <img src="images/search_btn.png" />
-                    </a>
-                </div>
+                <img src="images/welcome-noreview.png" />
                 <div style="clear: both;"></div>
-                <div class="nono-msg">
-                    NO REVIEWS YET
+                <div class="no-review-title">
+                    No reviews yet
                 </div>
-                <p class="tip-msg">Getting a review is simple</p>
+                <p class="no-review-content">Getting a review is simple, just post a knack or item, do good busniness and get a review!</p>
 
-                <div class="notice-box">
-                    <div>
-                        <div class="numberCircle">1</div><div class="notice-msg">Post a Knacks or an Item</div><div style="clear: both;"></div>
-                    </div>
-                    <div>
-                        <div class="numberCircle">2</div>
-                        <div class="notice-msg">Do good business</div>
-                        <!--
-                        <img class="right contact-state-icon" src="images/sprites-images/refresh-green-icon.png">
-                        -->
-                        <div style="clear: both;"></div>
-                    </div>
-                    <div>
-                        <div class="numberCircle">3</div>
-                        <div class="notice-msg">Get a review</div>
-                        <!--
-                        <img class="right contact-state-icon" src="images/sprites-images/check-green.png">
-                        -->
-                        <div style="clear: both;"></div>
-                    </div>
-                </div>
                 <div class="alter-msg">
-                    <p ng-show="! is_public">Your reviews<br>will appear here</p>
-                    <p ng-show="is_public">{{ user_post_data.first_name }}'s reviews<br>will appear here</p>
-                    <p></p>
+                    All of Jessica's reviews will appear here!
                 </div>
             </div>
             <!--
